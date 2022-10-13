@@ -10,7 +10,6 @@ header {
 
 main {
     min-height : 590px;
-    height:100%;
     right : 5px;
     bottom: 8px;
     padding-left : 200px;
@@ -19,11 +18,6 @@ main {
     border-top : none;
     border-bottom : none;
     background-color:gray;  
-}
-
-main h2, main p, main h1,span   
-{
-    margin-left : 20px;
 }
 
 footer {
@@ -46,44 +40,4 @@ nav {
     border-right : 2px dashed;
     position : fixed;
 }
-nav article
-{
-    margin-top : 130px;
-    margin-left : 10px;
-}
 
-nav a{
-    display: block;
-}
-
-ul{
-    padding-left : 20px ;
-}
-
-li{
-    list-style-type: '-';
-}
-table {
-    border: medium solid #0C0F0A;
-    border-collapse: collapse;
-    width: 50%;
-}
-th {
-    font-family: monospace;
-    border: thin solid #0C0F0A;
-    width: 25%;
-    padding: 5px;
-    background-color: #D3D3D3;
-}
-td {
-    font-family: sans-serif;
-    border: thin solid #0C0F0A;
-    width: 25%;
-    padding: 5px;
-    text-align: center;
-    background-color: #ffffff;
-}
-form
-{
-    padding-left : 20px ;
-}
