@@ -5,7 +5,7 @@ header {
     border-bottom : 2px dashed;
     background-color:lightgray;
     z-index:1;
-    text-align : center;
+    padding: 5px;
     }
 
 main {
@@ -40,4 +40,31 @@ nav {
     border-right : 2px dashed;
     position : fixed;
 }
+nav article
+{
+    margin-top : 50px;
+    margin-left : 10px;
+}
 
+ul{
+    padding-left : 20px ;
+}
+
+li{
+    list-style-type: '-';
+}
+
+.svg{
+    width:20px;
+    height:20px;
+}
+
+#search
+{
+   float: right;
+}
+
+#login
+{
+   float: right;
+}
