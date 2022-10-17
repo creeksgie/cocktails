@@ -12,6 +12,10 @@
             $i = count($chemin);
             $Lien = $Hierarchie[$_GET['page']];
             $chemin[] = $_GET['page'];
+            if ($chemin[$i] == $chemin[$i-1]) {
+                array_splice($chemin, $i);
+                $i--;
+            }
             if ($i >= 3) {
                 if ( $chemin[$i] == $chemin[$i-2] ||  $chemin[$i] == $chemin[$i-3]) {
                     do{

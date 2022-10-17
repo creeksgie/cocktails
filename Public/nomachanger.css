@@ -1,6 +1,6 @@
+
 header {
     position: sticky;
-    top: 0px;
     border : 2px solid;
     border-bottom : 2px dashed;
     background-color:lightgray;
@@ -9,9 +9,7 @@ header {
     }
 
 main {
-    min-height : 590px;
-    right : 5px;
-    bottom: 8px;
+    min-height :100%;
     padding-left : 200px;
     padding-bottom : 8px;   
     border : 2px solid;
@@ -21,7 +19,6 @@ main {
 }
 
 footer {
-    bottom : 0px;
     border : 2px solid;
     border-top : 2px solid;
     background-color:lightgray;
@@ -33,7 +30,6 @@ footer {
 nav {
     width:200px;
     height:95%;
-    top : 8px;
     background-color:lightgray;
     float: left;
     border-left : 2px solid;
