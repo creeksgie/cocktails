@@ -40,4 +40,4 @@ https://heroicons.com/
 
 Donnees.inc.php 
 $Recettes array contenant toute les recettes 
-$Hierarchie array contenant tout les aliments possible 
+$Hierarchie array contenant tout les aliments possible
