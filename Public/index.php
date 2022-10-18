@@ -15,7 +15,7 @@ session_start();
     margin-right: 0px;"
 >
    <header>
-      <button>Navigation</button>
+      <button onclick=window.location.href="?page=Aliment";>Navigation</button>
       <button>Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </button>
       <span id ="login" >
          Zone de connection
@@ -29,6 +29,7 @@ session_start();
       <?php require("navigation.php"); ?>
    </nav>
    <main>
+      <?php require("cocktails.php"); ?>
    </main>
    <footer>
       salut
