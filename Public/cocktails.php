@@ -22,40 +22,8 @@
 
                         if (!isset($afficher)) {
                             $afficher[] = $Recettes[$key]["titre"];
-                            ?>
-                            <span>
-                            <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
-                            <br>
-                            <p>
-                            <img src="..\Photos\cocktail.png" alt="">
-                            <br>
-                            <?php
-                            echo $Recettes[$key]["titre"];
-                            ?> </p>
-                            <ul> <?php
-                            foreach ($Recettes[$key]["index"] as $key4) {
-                                ?> <li><?= htmlentities($key4) ?></li> <?php
-                            }
-                            ?> </ul> 
-                        </span><?php
                         }elseif (!in_array($Recettes[$key]["titre"], $afficher)) {
                             $afficher[] = $Recettes[$key]["titre"];
-                            ?>
-                       <span>
-                           <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
-                           <br>
-                           <p>
-                           <img src="..\Photos\cocktail.png" alt="">
-                           <br>
-                           <?php
-                           echo $Recettes[$key]["titre"];
-                           ?> </p>
-                           <ul> <?php
-                           foreach ($Recettes[$key]["index"] as $key4) {
-                               ?> <li><?= htmlentities($key4) ?></li> <?php
-                           }
-                           ?> </ul> 
-                       </span><?php
                         }
                     }
                 }
@@ -63,40 +31,8 @@
             if (!isset($_GET['page']) || $value["index"][$key2] == $_GET['page']) {
                 if (!isset($afficher)) {
                     $afficher[] = $Recettes[$key]["titre"];
-                    ?>
-                    <span>
-                    <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
-                    <br>
-                    <p>
-                    <img src="..\Photos\cocktail.png" alt="">
-                    <br>
-                    <?php
-                    echo $Recettes[$key]["titre"];
-                    ?> </p>
-                    <ul> <?php
-                    foreach ($Recettes[$key]["index"] as $key4) {
-                        ?> <li><?= htmlentities($key4) ?></li> <?php
-                    }
-                    ?> </ul> 
-                </span><?php
                 }elseif (!in_array($Recettes[$key]["titre"], $afficher)) {
                     $afficher[] = $Recettes[$key]["titre"];
-                    ?>
-               <span>
-                   <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
-                   <br>
-                   <p>
-                   <img src="..\Photos\cocktail.png" alt="">
-                   <br>
-                   <?php
-                   echo $Recettes[$key]["titre"];
-                   ?> </p>
-                   <ul> <?php
-                   foreach ($Recettes[$key]["index"] as $key4) {
-                       ?> <li><?= htmlentities($key4) ?></li> <?php
-                   }
-                   ?> </ul> 
-               </span><?php
                 }
             }
         }
@@ -111,5 +47,32 @@
    
 } while (array_key_exists($i,$sc));
 alpha:
+?>
+    <?php
+    foreach ($Recettes as $k7 => $value) {
+        foreach ($afficher as $k8 => $value) {
+            if ( $Recettes[$k7]["titre"] == $afficher[$k8]) {
+                ?>
+                <span>
+                    <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+                    <br>
+                    <p>
+                        <?php
+                            /*if () {
+                                ?><img src="..\Photos\<?= htmlentities($Recettes[$k7]["titre"]) ?>.jpg" alt=""><?php
+                            }else*/
+                            ?><img src="..\Photos\cocktail.png" alt="">
+                    <br>
+                    <?php
+                     echo $Recettes[$k7]["titre"];
+                    ?> </p>
+                    <ul> <?php
+                    foreach ($Recettes[$k7]["index"] as $key4) {
+                        ?> <li><?= htmlentities($key4) ?></li> <?php
+                    }
+                    ?> </ul> 
+                </span><?php }}
+            }
+           
     ?>
 </article>

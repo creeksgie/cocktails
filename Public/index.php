@@ -5,7 +5,7 @@ session_start();
 <html lang="fr">
  <head>
     <meta charset='utf-8'>
-    <link rel="stylesheet" href="amod.css">
+    <link rel="stylesheet" href="amodifier.css">
     <?php  include("..\Donnees.inc.php"); ?>
  </head>
  <body style ="

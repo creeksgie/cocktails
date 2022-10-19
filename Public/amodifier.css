@@ -32,8 +32,7 @@ footer {
 
 nav {
     width:200px;
-    height:95%;
-    top : 8px;
+    height:100%;
     background-color:lightgray;
     float: left;
     border-left : 2px solid;
@@ -77,9 +76,12 @@ main article
 main article span
 {
     display: inline-block;
+    vertical-align: top;
     margin-top : 20px;
     margin-left: 30px;
     width: 260px;
+    min-height: 400px;
+    max-height: 400px;
     background-color:rgb(255, 255, 255);
 }
 
