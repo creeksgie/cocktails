@@ -29,7 +29,14 @@ session_start();
       <?php require("navigation.php"); ?>
    </nav>
    <main>
-      <?php require("cocktails.php"); ?>
+      <?php
+      if (isset($_GET['Recettes'])) {
+        require("recettesDetaille.php");
+      }else {
+         require("cocktails.php");
+      }
+      ?>
+      
    </main>
    <footer>
       salut

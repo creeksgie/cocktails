@@ -63,9 +63,9 @@ alpha:
                             }else*/
                             ?><img src="..\Photos\cocktail.png" alt="">
                     <br>
-                    <?php
-                     echo $Recettes[$k7]["titre"];
-                    ?> </p>
+                    
+                    <a href="?Recettes=<?php echo $k7; ?>"><?php echo $Recettes[$k7]["titre"]; ?></a>
+                    </p>
                     <ul> <?php
                     foreach ($Recettes[$k7]["index"] as $key4) {
                         ?> <li><?= htmlentities($key4) ?></li> <?php
