@@ -19,7 +19,8 @@ détailler :
     Coeur(vide ou pas)
 
 
-quand on appuye sur inscription ouvrir une popup/ changer de page en sauvegardant la page courante 
+
+quand on appuye sur inscription changer de page en sauvegardant la page courante (dans le main tah l'exo final)
 demandant les coordonées de l'utilisateur 
 
 une fois connecter la zone de connection doit contenir le login, un bouton profil et un bouton déconnexion 

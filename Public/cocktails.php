@@ -1,11 +1,115 @@
 <article>
     <?php
-        //affichage synthétique (bon pas encore mis en forme mais voila comment récuperer les infos)
-        echo $Recettes[0]["titre"];
-        ?><button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
-        <img src="..\Photos\cocktail.png" alt=""><?php
-        foreach ($Recettes[0]["index"] as $key) {
-            echo "<br>",$key;
+        if (!isset($_GET['page'])|| $_GET['page'] == 'Aliment') {
+            $Lien = $Hierarchie['Aliment'];
+         }else{
+            $Lien = $Hierarchie[$_GET['page']];
+         }
+    $i = -1;
+    $sc= null;
+    do {
+    foreach ($Recettes as $key => $value) {
+        foreach ($value["index"] as $key2 => $value2) {
+            if (isset($Lien["sous-categorie"])) {
+                foreach ($Lien["sous-categorie"] as $key3 => $value3) {
+                    //var_dump($Lien["sous-categorie"][$key3]);
+                    if (!isset($sc)) {
+                        $sc[] = $Lien["sous-categorie"][$key3];
+                    }elseif (!in_array($Lien["sous-categorie"][$key3], $sc)) {
+                        $sc[] = $Lien["sous-categorie"][$key3];
+                    }
+                    if ($value["index"][$key2] == $Lien["sous-categorie"][$key3]) {
+
+                        if (!isset($afficher)) {
+                            $afficher[] = $Recettes[$key]["titre"];
+                            ?>
+                            <span>
+                            <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+                            <br>
+                            <p>
+                            <img src="..\Photos\cocktail.png" alt="">
+                            <br>
+                            <?php
+                            echo $Recettes[$key]["titre"];
+                            ?> </p>
+                            <ul> <?php
+                            foreach ($Recettes[$key]["index"] as $key4) {
+                                ?> <li><?= htmlentities($key4) ?></li> <?php
+                            }
+                            ?> </ul> 
+                        </span><?php
+                        }elseif (!in_array($Recettes[$key]["titre"], $afficher)) {
+                            $afficher[] = $Recettes[$key]["titre"];
+                            ?>
+                       <span>
+                           <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+                           <br>
+                           <p>
+                           <img src="..\Photos\cocktail.png" alt="">
+                           <br>
+                           <?php
+                           echo $Recettes[$key]["titre"];
+                           ?> </p>
+                           <ul> <?php
+                           foreach ($Recettes[$key]["index"] as $key4) {
+                               ?> <li><?= htmlentities($key4) ?></li> <?php
+                           }
+                           ?> </ul> 
+                       </span><?php
+                        }
+                    }
+                }
+            }
+            if (!isset($_GET['page']) || $value["index"][$key2] == $_GET['page']) {
+                if (!isset($afficher)) {
+                    $afficher[] = $Recettes[$key]["titre"];
+                    ?>
+                    <span>
+                    <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+                    <br>
+                    <p>
+                    <img src="..\Photos\cocktail.png" alt="">
+                    <br>
+                    <?php
+                    echo $Recettes[$key]["titre"];
+                    ?> </p>
+                    <ul> <?php
+                    foreach ($Recettes[$key]["index"] as $key4) {
+                        ?> <li><?= htmlentities($key4) ?></li> <?php
+                    }
+                    ?> </ul> 
+                </span><?php
+                }elseif (!in_array($Recettes[$key]["titre"], $afficher)) {
+                    $afficher[] = $Recettes[$key]["titre"];
+                    ?>
+               <span>
+                   <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+                   <br>
+                   <p>
+                   <img src="..\Photos\cocktail.png" alt="">
+                   <br>
+                   <?php
+                   echo $Recettes[$key]["titre"];
+                   ?> </p>
+                   <ul> <?php
+                   foreach ($Recettes[$key]["index"] as $key4) {
+                       ?> <li><?= htmlentities($key4) ?></li> <?php
+                   }
+                   ?> </ul> 
+               </span><?php
+                }
+            }
         }
+    }
+    $i++;
+    if (isset($sc[$i])) {
+        $Lien = $Hierarchie[$sc[$i]];
+    }
+    else {
+        goto alpha;
+    }
+   
+} while (array_key_exists($i,$sc));
+alpha:
     ?>
 </article>

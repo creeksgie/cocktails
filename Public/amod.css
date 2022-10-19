@@ -17,6 +17,7 @@ main {
     border-top : none;
     border-bottom : none;
     background-color:gray;  
+    padding-top : 30px;
 }
 
 footer {
@@ -45,11 +46,11 @@ nav article
     margin-left : 10px;
 }
 
-ul{
+nav ul{
     padding-left : 20px ;
 }
 
-li{
+nav li{
     list-style-type: '-';
 }
 
@@ -66,4 +67,32 @@ li{
 #login
 {
    float: right;
+}
+
+main article
+{
+    min-height: 700px;
+}
+
+main article span
+{
+    display: inline-block;
+    margin-top : 20px;
+    margin-left: 30px;
+    width: 260px;
+    background-color:rgb(255, 255, 255);
+}
+
+article p
+{
+    text-align: center;
+}
+
+main ul 
+{
+    margin-top : 0px;
+}
+
+main li{
+    list-style: inside;
 }
