@@ -1,5 +1,5 @@
 <article>
-    <h1>Aliment Courant</h1>
+    <h2>Aliment Courant</h2>
     <?php
         if (!isset($_GET['page'])|| $_GET['page'] == 'Aliment') {
            $Lien = $Hierarchie['Aliment'];  
@@ -39,16 +39,16 @@
         $_SESSION['chemin'] = $chemin;
         
     ?>
-    <ul>
     <?php
         foreach ($Lien as $clé => $val) { 
             if ($clé != 'super-categorie') {
-                ?><h2><?= htmlentities($clé) ?></h2> <?php
+                ?><h2><?= htmlentities($clé) ?></h2> 
+                <ul><?php
                 foreach ($val as $clé2 => $val2) {
                     ?> <li><a href="?page=<?php echo $Lien[$clé][$clé2]; ?>"><?php echo $Lien[$clé][$clé2]; ?></a></li> <?php
                 } 
+                ?> </ul> <?php
             }
         }
     ?>
-    </ul>
 </article>

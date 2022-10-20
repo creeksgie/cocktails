@@ -8,31 +8,29 @@
     $i = -1;
     $sc= null;
     do {
-    foreach ($Recettes as $key => $value) {
-        foreach ($value["index"] as $key2 => $value2) {
+    foreach ($Recettes as $index_c => $cocktails) {
+        foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) {
             if (isset($Lien["sous-categorie"])) {
-                foreach ($Lien["sous-categorie"] as $key3 => $value3) {
-                    //var_dump($Lien["sous-categorie"][$key3]);
+                foreach ($Lien["sous-categorie"] as $index_sc => $sous_categorie) {
                     if (!isset($sc)) {
-                        $sc[] = $Lien["sous-categorie"][$key3];
-                    }elseif (!in_array($Lien["sous-categorie"][$key3], $sc)) {
-                        $sc[] = $Lien["sous-categorie"][$key3];
+                        $sc[] = $sous_categorie;
+                    }elseif (!in_array($sous_categorie, $sc)) {
+                        $sc[] = $sous_categorie;
                     }
-                    if ($value["index"][$key2] == $Lien["sous-categorie"][$key3]) {
-
+                    if ($ingredients == $sous_categorie) {
                         if (!isset($afficher)) {
-                            $afficher[] = $Recettes[$key]["titre"];
-                        }elseif (!in_array($Recettes[$key]["titre"], $afficher)) {
-                            $afficher[] = $Recettes[$key]["titre"];
+                            $afficher[] = $index_c;
+                        }elseif (!in_array($index_c, $afficher)) {
+                            $afficher[] = $index_c;
                         }
                     }
                 }
             }
-            if (!isset($_GET['page']) || $value["index"][$key2] == $_GET['page']) {
+            if (!isset($_GET['page']) || $ingredients == $_GET['page']) {
                 if (!isset($afficher)) {
-                    $afficher[] = $Recettes[$key]["titre"];
-                }elseif (!in_array($Recettes[$key]["titre"], $afficher)) {
-                    $afficher[] = $Recettes[$key]["titre"];
+                    $afficher[] = $index_c;
+                }elseif (!in_array($index_c, $afficher)) {
+                    $afficher[] = $index_c;
                 }
             }
         }
@@ -44,35 +42,31 @@
     else {
         goto alpha;
     }
-   
 } while (array_key_exists($i,$sc));
 alpha:
+foreach ($afficher as $index_a => $cocktails) {
 ?>
-    <?php
-    foreach ($Recettes as $k7 => $value) {
-        foreach ($afficher as $k8 => $value) {
-            if ( $Recettes[$k7]["titre"] == $afficher[$k8]) {
-                ?>
-                <span>
-                    <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
-                    <br>
-                    <p>
-                        <?php
-                            /*if () {
-                                ?><img src="..\Photos\<?= htmlentities($Recettes[$k7]["titre"]) ?>.jpg" alt=""><?php
-                            }else*/
-                            ?><img src="..\Photos\cocktail.png" alt="">
-                    <br>
+    <div>
+        <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+        <br>
+        <p>
+<?php
+        /*if () {
+        ?><img src="..\Photos\<?= htmlentities($Recettes[$k7]["titre"]) ?>.jpg" alt=""><?php
+        }else*/
+?>
+        <img src="..\Photos\cocktail.png" alt="">
+        <br>
                     
-                    <a href="?Recettes=<?php echo $k7; ?>"><?php echo $Recettes[$k7]["titre"]; ?></a>
-                    </p>
-                    <ul> <?php
-                    foreach ($Recettes[$k7]["index"] as $key4) {
-                        ?> <li><?= htmlentities($key4) ?></li> <?php
-                    }
-                    ?> </ul> 
-                </span><?php }}
-            }
+        <a href="?Recettes=<?php echo $index_a; ?>"><?php echo $Recettes[$index_a]["titre"]; ?></a>
+        </p>
+        <ul> <?php
+        foreach ($Recettes[$index_a]["index"] as $ing ) {
+            ?> <li><?= htmlentities($ing) ?></li> <?php
+        }
+        ?> </ul> 
+    </div>
+<?php }
            
     ?>
 </article>
