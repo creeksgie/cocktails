@@ -1,10 +1,11 @@
 <article>
     <?php
-        if (!isset($_GET['page'])|| $_GET['page'] == 'Aliment') {
-            $Lien = $Hierarchie['Aliment'];
-         }else{
-            $Lien = $Hierarchie[$_GET['page']];
-         }
+    $i = 0;
+    if (!isset($_GET['page'])|| $_GET['page'] == 'Aliment') {
+        $Lien = $Hierarchie['Aliment'];
+    }else{
+        $Lien = $Hierarchie[$_GET['page']];
+    }
     $i = -1;
     $sc= null;
     do {
@@ -39,12 +40,10 @@
     if (isset($sc[$i])) {
         $Lien = $Hierarchie[$sc[$i]];
     }
-    else {
-        goto alpha;
-    }
-} while (array_key_exists($i,$sc));
-alpha:
+} while ($i < count($sc));
+sort($afficher);
 foreach ($afficher as $index_a => $cocktails) {
+
 ?>
     <div>
         <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
@@ -58,15 +57,14 @@ foreach ($afficher as $index_a => $cocktails) {
         <img src="..\Photos\cocktail.png" alt="">
         <br>
                     
-        <a href="?Recettes=<?php echo $index_a; ?>"><?php echo $Recettes[$index_a]["titre"]; ?></a>
+        <a href="?Recettes=<?php echo $cocktails; ?>"><?php echo $Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]; ?></a>
         </p>
         <ul> <?php
-        foreach ($Recettes[$index_a]["index"] as $ing ) {
+        foreach ($Recettes[$cocktails][array_keys($Recettes[$cocktails])[3]] as $ing ) {
             ?> <li><?= htmlentities($ing) ?></li> <?php
         }
         ?> </ul> 
     </div>
 <?php }
-           
     ?>
 </article>
