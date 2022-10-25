@@ -99,3 +99,10 @@ main ul
 main li{
     list-style: inside;
 }
+
+img
+{
+    max-width: 128px;
+	height: auto;
+    max-height: 180px;
+}

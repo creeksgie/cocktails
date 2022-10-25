@@ -6,7 +6,7 @@ session_start();
 
 <head>
    <meta charset='utf-8'>
-   <link rel="stylesheet" href="amodifier.css">
+   <link rel="stylesheet" href="amod.css">
    <title>Cocktails</title>
    <?php include("..\Donnees.inc.php"); ?>
 </head>
