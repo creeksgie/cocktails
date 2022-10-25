@@ -8,7 +8,6 @@
     }
     $i = -1;
     $sc = null;
-    $nb = null;
     do {
         foreach ($Recettes as $index_c => $cocktails) {
             foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) {
@@ -63,9 +62,9 @@
                     }
                 }
                 $dir = scandir("..\Photos");
-        
+
                 foreach ($dir as $key3 => $value9) {
-                    if (preg_match_all('#^[A-Z]([a-z]+[_]*){0,8}#',$dir[$key3],$match)) {
+                    if (preg_match_all('#^[A-Z]([a-z]+[_]*){0,8}#', $dir[$key3], $match)) {
                         $yo[] = $match[0][0];
                     }
                 }
@@ -75,9 +74,13 @@
                     }
                 }
                 if ($nb != null) {
-                    ?><img src="..\Photos\<?= htmlentities($nb) ?>.jpg" alt=""><?php
-                }else {
-                    ?><img src="..\Photos\cocktail.png" alt=""><?php
+                ?>
+                    <img src="..\Photos\<?= htmlentities($nb) ?>.jpg" alt="">
+                <?php
+                } else {
+                ?>
+                    <img src="..\Photos\cocktail.png" alt="">
+                <?php
                 }
                 ?>
                 <br>
@@ -94,9 +97,5 @@
         </div>
     <?php
     }
-
-    /*
-
-     */
     ?>
 </article>

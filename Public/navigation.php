@@ -24,15 +24,11 @@
                 } while ($chemin[$i] != $_GET['page']);
             }
         }
-        if ($i > 1) {
+        foreach ($chemin as $index_chemin => $page) {
         ?>
-            <a href="?page=<?php echo $chemin[$i - 2]; ?>"><?php echo $chemin[$i - 2]; ?></a> /
-        <?php
-        } else
-        ?>
-        <a href="?page=<?php echo $chemin[$i - 1]; ?>"><?php echo $chemin[$i - 1]; ?></a> /
-        <a href="?page=<?= htmlentities($_GET['page']) ?>"><?= htmlentities($_GET['page']) ?></a> /
+            <a href="?page=<?php echo $page; ?>"><?php echo $page; ?></a> /
     <?php
+        }
     }
 
     $_SESSION['chemin'] = $chemin;
