@@ -10,7 +10,7 @@
     $sc = null;
     do {
         foreach ($Recettes as $index_c => $cocktails) {
-            foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) {
+            foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) { 
                 if (isset($Lien["sous-categorie"])) {
                     foreach ($Lien["sous-categorie"] as $index_sc => $sous_categorie) {
                         if (!isset($sc)) {
