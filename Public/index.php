@@ -6,27 +6,38 @@ session_start();
 
 <head>
    <meta charset='utf-8'>
-   <link rel="stylesheet" href="amod.css">
+   <link rel="stylesheet" href="a.css">
    <title>Cocktails</title>
    <?php include("..\Donnees.inc.php"); ?>
 </head>
 
 <body style="
-    margin-top: 0px;
+    margin-top: 0px; 
     margin-bottom: 0px;
     margin-left: 0px;
     margin-right: 0px;">
    <header>
-      <button onclick=window.location.href="?page=Aliment" ;>Navigation</button>
-      <button>Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </button>
-      <?php require("connexion.php"); ?>
-      <span id="search">
-         Recherche : <input id="searchbar" type="text" placeholder="">
-         <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
-      </span>
+      <div id="head-nav" class="head-section">
+         <a href="?page=Aliment" ;>Navigation</a>
+      </div>
+      <div id="head-recettes" class="head-section">
+         <a href="#">Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </a>
+      </div>
+      <div id="search" class="head-section">
+         <span>
+            Recherche : <input id="searchbar" type="text" placeholder="">
+            <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
+         </span>
+      </div>
+      <div id="login" class="head-section">
+         <span>
+            Zone de connection
+         </span>
+      </div>
    </header>
    <nav>
       <?php
+       require("navigation.php"); 
       /*if(isset($_SESSION['user']))
       {
           if(!isset($_GET['page'])) $_GET['page']='index';
@@ -49,7 +60,7 @@ session_start();
 
    </main>
    <footer>
-      salut
+      yo
    </footer>
 </body>
 

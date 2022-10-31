@@ -24,7 +24,7 @@
 
     if($complet)
     {
-        include('index.php');
+        //include('index.php');
     }
     else{
         if(isset($_GET['submit']))
@@ -38,7 +38,6 @@
 ?>
 </span>
 
-<main>
     <form method="get" action="?page=connexion">
         Votre login :
         <input type="text" name="login"
@@ -60,5 +59,3 @@
         <input type="date" name="dateN"
                value="<?php echo (isset($_GET['dateN'])?$_GET['dateN']:'');?>"> <br />
     </form>
-</main>
-

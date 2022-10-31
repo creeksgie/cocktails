@@ -1,5 +1,6 @@
 <article>
     <h2>Aliment Courant</h2>
+    <span>
     <?php
     if (!isset($_GET['page']) || $_GET['page'] == 'Aliment') {
         $Lien = $Hierarchie['Aliment'];
@@ -34,6 +35,7 @@
     $_SESSION['chemin'] = $chemin;
 
     ?>
+    </span>
     <?php
     foreach ($Lien as $clé => $val) {
         if ($clé != 'super-categorie') {

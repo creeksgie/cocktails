@@ -1,3 +1,4 @@
+<span>
 <?php
 echo $Recettes[$_GET['Recettes']]["titre"];
 ?> <br>
@@ -12,3 +13,4 @@ foreach ($Recettes[$_GET['Recettes']]["index"] as $key4) {
 }
 
 ?>
+</span>

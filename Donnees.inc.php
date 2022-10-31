@@ -2789,7 +2789,7 @@
       4 => 'Jus de bananes',
       5 => 'Jus de canneberge',
       6 => 'Jus de cerises',
-      7 => 'jus de fruit de la passion',
+      7 => 'Jus de fruit de la passion',
       8 => 'Jus de goyave',
       9 => 'Jus de litchis',
       10 => 'Jus de mangue',
