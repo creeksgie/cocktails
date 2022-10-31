@@ -63,6 +63,7 @@ nav {
     border-right : 1px solid rgb(255, 255, 255, 0.1);
     position : fixed;
     margin-left : 10px;
+    padding-right: 10px;
 }
 
 footer{
@@ -75,8 +76,16 @@ footer{
     bottom: 0px;
     border-top: 1px solid  rgb(255, 255, 255, 0.1);
 }
+nav p
+{
+    color: grey;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 nav ul{
+    margin-top: 5px;
     padding-left : 15px ;
 }
 
@@ -92,7 +101,7 @@ nav li{
 
 main article
 {
-    margin-left: 15vh;
+    margin-left: 7vh;
     padding-bottom: 10vh;
 }
 
