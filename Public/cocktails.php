@@ -43,8 +43,8 @@
     } while ($i < count($sc));
     sort($afficher);
     foreach ($afficher as $index_a => $cocktails) {
-        $yo = null;
-        $nb = null;
+        $TabCo = null;
+        $nom_photo = null;
     ?>
         <div>
             <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
@@ -55,27 +55,27 @@
                 $string = explode("_", $string);
 
                 $s = $string[0];
-                foreach ($string as $key => $value) {
-                    if ($key > 0) {
-                        $string[$key] = strtolower($string[$key]);
-                        $s = $s . "_" . $string[$key];
+                foreach ($string as $index_s => $mot) {
+                    if ($index_s > 0) {
+                        $string[$index_s] = strtolower($string[$index_s]);
+                        $s = $s . "_" . $string[$index_s];
                     }
                 }
                 $dir = scandir("..\Photos");
 
-                foreach ($dir as $key3 => $value9) {
-                    if (preg_match_all('#^[A-Z]([a-z]+[_]*){0,8}#', $dir[$key3], $match)) {
-                        $yo[] = $match[0][0];
+                foreach ($dir as $index_photo => $photo) {
+                    if (preg_match_all('#^[A-Z]([a-z]+[_]*){0,8}#', $dir[$index_photo], $match)) {
+                        $TabCo[] = $match[0][0];
                     }
                 }
-                foreach ($yo as $key2 => $value4) {
-                    if ($s == $yo[$key2]) {
-                        $nb =  $yo[$key2];
+                foreach ($TabCo as $index_cocktail => $value4) {
+                    if ($s == $TabCo[$index_cocktail]) {
+                        $nom_photo =  $TabCo[$index_cocktail];
                     }
                 }
-                if ($nb != null) {
+                if ($nom_photo != null) {
                 ?>
-                    <img src="..\Photos\<?= htmlentities($nb) ?>.jpg" alt="">
+                    <img src="..\Photos\<?= htmlentities($nom_photo) ?>.jpg" alt="">
                 <?php
                 } else {
                 ?>

@@ -37,13 +37,13 @@
         ?>
     </span>
     <?php
-    foreach ($Lien as $clé => $val) {
-        if ($clé != 'super-categorie') {
+    foreach ($Lien as $index_nav => $nav) {
+        if ($index_nav != 'super-categorie') {
     ?>
-            <p><?= htmlentities($clé) ?></p>
+            <p><?= htmlentities($index_nav) ?></p>
             <ul><?php
-                foreach ($val as $clé2 => $val2) {
-                ?> <li><a href="?page=<?php echo $Lien[$clé][$clé2]; ?>"><?php echo $Lien[$clé][$clé2]; ?></a></li>
+                foreach ($nav as $index_ing => $ingredient) {
+                ?> <li><a href="?page=<?php echo $Lien[$index_nav][$index_ing]; ?>"><?php echo $Lien[$index_nav][$index_ing]; ?></a></li>
                 <?php
                 }
                 ?> </ul>
