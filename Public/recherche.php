@@ -1,5 +1,17 @@
+<nav>
+
+</nav>
+<main>
 <span>
 <?php
-    echo $Recherche[$_GET['recherche']];
+    $x = $_POST['ingredient'];
+    echo $x . "<br>";
+    //match les s dans $x 
+    $regex = '/s/';
+    $matches = array();
+    preg_match_all($regex, $x, $matches);
+    var_dump($matches);
+    //affiche le nombre de s dans $x
 ?>
 </span>
+</main>
