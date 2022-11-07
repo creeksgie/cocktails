@@ -26,7 +26,7 @@ session_start();
       <div id="search" class="head-section">
          <span>
             <form action="./" class="hide-submit" method="POST" >
-               <input name="ingredient" type="text" />
+               <input name="ingredient" type="text" required="required"/>
                <label>
                   <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
                </label>
