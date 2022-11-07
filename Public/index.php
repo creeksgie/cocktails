@@ -25,8 +25,8 @@ session_start();
       </div>
       <div id="search" class="head-section">
          <span>
-            Recherche : <input id="searchbar" type="text" placeholder="">
-            <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
+               <input type="text" name="recherche" placeholder="">               
+               <button onclick="recherche()"><img class="svg" src="..\svg\loupe.svg" alt=""></button>
          </span>
       </div>
       <div id="login" class="head-section">
@@ -53,7 +53,11 @@ session_start();
       <?php
       if (isset($_GET['Recettes'])) {
          require("recettesDetaille.php");
-      } else {
+      } 
+      else if (isset($_GET['recherche'])) {
+         require("recherche.php");
+      }
+      else {
          require("cocktails.php");
       }
       ?>
@@ -62,6 +66,16 @@ session_start();
    <footer>
       yo
    </footer>
+
+   <script>
+      function recherche() {
+         var input;
+         input = document.getElementById("recherche").value;
+         document.getElementById("recherche").value = "Val";
+         $_GET['recherche'] = input;
+         location.href = "recherche.php";
+      }
+   </script>
 </body>
 
 </html>
