@@ -75,7 +75,7 @@
     'index' => 
     array (
       0 => 'Jus d\'ananas',
-      1 => 'jus de fruit de la passion',
+      1 => 'Jus de fruit de la passion',
       2 => 'Sirop de grenadine',
       3 => 'Jus de citron',
       4 => 'Glaçon',
