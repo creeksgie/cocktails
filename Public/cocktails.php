@@ -44,44 +44,56 @@
     sort($afficher);
     foreach ($afficher as $index_a => $cocktails) {
         $TabCo = null;
-        $nom_photo = null;
     ?>
         <div>
-            <button><img class="svg" src="..\svg\coeurvide.svg" alt=""></button>
+             <?php
+            if (isset($_COOKIE['L'.$cocktails])) {
+                if ($_COOKIE['L'.$cocktails] != "false") {
+                    if (isset($_SESSION['like'])) {
+                        $TL = $_SESSION['like'];
+                     }
+                     $TL[] = $_COOKIE['L'.$cocktails];
+                     $_SESSION['like'] = $TL;
+                     //var_dump($_SESSION['like']);
+                }else
+                {
+                    if (isset($_SESSION['like'])) {
+                        $TL = $_SESSION['like'];
+                        $pos = array_search($cocktails, $TL);
+                        array_splice($TL, $pos);
+                        $_SESSION['like'] = $TL;
+                    }
+                }
+                
+            }
+            //setcookie('L'.$cocktails, null, time() - 3600);
+            ?>
+                
+            <button class="btn" onclick="Like(<?php echo $cocktails; ?>)">
+            <?php 
+            if(isset($_SESSION['like'])) {
+                if (in_array($cocktails,$_SESSION['like'])) {
+                    ?>
+                    <img id="<?php echo $cocktails;?>" class="svg"  src="..\svg\coeurplein.svg" alt="">
+                    <?php
+                } else {
+                    ?>
+                    <img id="<?php echo $cocktails;?>" class="svg"  src="..\svg\coeurvide.svg" alt="">
+                    <?php
+                }
+            } else {
+                ?>
+                    <img id="<?php echo $cocktails;?>" class="svg"  src="..\svg\coeurvide.svg" alt="">
+                    <?php
+            }
+
+            ?>
+            
+            </button>
+           
             <p>
                 <?php
-
-                $string = preg_replace('/\s+/', '_', $Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]);
-                $string = explode("_", $string);
-
-                $s = $string[0];
-                foreach ($string as $index_s => $mot) {
-                    if ($index_s > 0) {
-                        $string[$index_s] = strtolower($string[$index_s]);
-                        $s = $s . "_" . $string[$index_s];
-                    }
-                }
-                $dir = scandir("..\Photos");
-
-                foreach ($dir as $index_photo => $photo) {
-                    if (preg_match_all('#^[A-Z]([a-z]+[_]*){0,8}#', $dir[$index_photo], $match)) {
-                        $TabCo[] = $match[0][0];
-                    }
-                }
-                foreach ($TabCo as $index_cocktail => $value4) {
-                    if ($s == $TabCo[$index_cocktail]) {
-                        $nom_photo =  $TabCo[$index_cocktail];
-                    }
-                }
-                if ($nom_photo != null) {
-                ?>
-                    <img src="..\Photos\<?= htmlentities($nom_photo) ?>.jpg" alt="">
-                <?php
-                } else {
-                ?>
-                    <img src="..\Photos\cocktail.png" alt="">
-                <?php
-                }
+                Afficher_Image($Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]);
                 ?>
                 <br>
 
@@ -98,4 +110,19 @@
     <?php
     }
     ?>
+
+    <script>
+        function Like(indice){
+            var btn = document.querySelector(".btn");
+            var svg = document.getElementById(indice);
+            if (svg.src.match("coeurvide.svg")) {
+                svg.src = "../svg/coeurplein.svg";
+                document.cookie ='L'+indice+'='+indice;
+            } else {
+                svg.src = "../svg/coeurvide.svg";
+                document.cookie ='L'+indice+'=false';
+            }
+            location.reload();
+        }
+    </script>
 </article>

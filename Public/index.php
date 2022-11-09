@@ -8,7 +8,10 @@ session_start();
    <meta charset='utf-8'>
    <link rel="stylesheet" href="a.css">
    <title>Cocktails</title>
-   <?php include("..\Donnees.inc.php"); ?>
+   <?php 
+   include("..\Donnees.inc.php"); 
+   include("..\Fonction.php");
+   ?>
 </head>
 
 <body style="
@@ -78,3 +81,4 @@ session_start();
 </body>
 
 </html>
+
