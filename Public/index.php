@@ -9,8 +9,8 @@ session_start();
    <link rel="stylesheet" href="a.css">
    <title>Cocktails</title>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-   <?php 
-   include("..\Donnees.inc.php"); 
+   <?php
+   include("..\Donnees.inc.php");
    include("..\Fonction.php");
    ?>
 </head>
@@ -29,8 +29,8 @@ session_start();
       </div>
       <div id="search" class="head-section">
          <span>
-            <form action="./" class="hide-submit" method="POST" >
-               <input name="ingredient" type="text" required="required"/>
+            <form action="./" class="hide-submit" method="POST">
+               <input name="ingredient" type="text" required="required" />
                <label>
                   <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
                </label>
@@ -43,15 +43,18 @@ session_start();
          </span>
       </div>
    </header>
-   <?php 
+   <?php
    if (isset($_POST['ingredient'])) {
       require("recherche.php");
-   }else{
+   } else {
    ?>
-   <nav>
-      <?php
-       require("navigation.php"); 
-      /*if(isset($_SESSION['user']))
+      <nav>
+         <?php
+         if ($_GET['page'] == "Like") {
+         } else {
+            require("navigation.php");
+         }
+         /*if(isset($_SESSION['user']))
       {
           if(!isset($_GET['page'])) $_GET['page']='index';
           if(in_array($_GET['page'],array('')))
@@ -60,24 +63,22 @@ session_start();
           }
       }
       else include('connexion.php');*/
-      ?>
-   </nav>
-   <main>
-      <?php
-      if (isset($_GET['Recettes'])) {
-         require("recettesDetaille.php");
-      } 
-      else {
-         if ($_GET['page'] == "Like") {
-            require("like.php");
-         }else
-         {
-            require("cocktails.php");
+         ?>
+      </nav>
+      <main>
+         <?php
+         if (isset($_GET['Recettes'])) {
+            require("recettesDetaille.php");
+         } else {
+            if ($_GET['page'] == "Like") {
+               require("afficherLike.php");
+            } else {
+               require("cocktails.php");
+            }
          }
-      }
-      ?>
+         ?>
 
-   </main>
+      </main>
    <?php
    }
    ?>
@@ -87,4 +88,3 @@ session_start();
 </body>
 
 </html>
-

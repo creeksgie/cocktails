@@ -1,6 +1,7 @@
 <?php
 
-function Afficher_Image($mot){
+function Afficher_Image($mot)
+{
 
     $nom_photo = null;
     $string = preg_replace('/\s+/', '_', $mot);
@@ -13,6 +14,7 @@ function Afficher_Image($mot){
             $s = $s . "_" . $string[$index_s];
         }
     }
+    $s = minusculesSansAccents($s);
     $dir = scandir("..\Photos");
     foreach ($dir as $index_photo => $photo) {
         if (preg_match_all('#^[A-Z]([a-z]+[_]*){0,8}#', $dir[$index_photo], $match)) {
@@ -26,14 +28,38 @@ function Afficher_Image($mot){
     }
 
     if ($nom_photo != null) {
-        ?>
-            <img src="..\Photos\<?= htmlentities($nom_photo) ?>.jpg" alt="">
-        <?php
+?>
+        <img src="..\Photos\<?= htmlentities($nom_photo) ?>.jpg" alt="">
+    <?php
     } else {
-        ?>
-            <img src="..\Photos\cocktail.png" alt="">
-        <?php
+    ?>
+        <img src="..\Photos\cocktail.png" alt="">
+<?php
     }
+}
+
+function minusculesSansAccents($texte)
+{
+    $texte = str_replace(
+        array(
+            'à', 'â', 'ä', 'á', 'ã', 'å',
+            'î', 'ï', 'ì', 'í',
+            'ô', 'ö', 'ò', 'ó', 'õ', 'ø',
+            'ù', 'û', 'ü', 'ú',
+            'é', 'è', 'ê', 'ë',
+            'ç', 'ÿ', 'ñ',
+        ),
+        array(
+            'a', 'a', 'a', 'a', 'a', 'a',
+            'i', 'i', 'i', 'i',
+            'o', 'o', 'o', 'o', 'o', 'o',
+            'u', 'u', 'u', 'u',
+            'e', 'e', 'e', 'e',
+            'c', 'y', 'n',
+        ),
+        $texte
+    );
+    return $texte;
 }
 
 ?>

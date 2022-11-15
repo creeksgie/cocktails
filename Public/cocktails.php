@@ -10,7 +10,7 @@
     $sc = null;
     do {
         foreach ($Recettes as $index_c => $cocktails) {
-            foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) { 
+            foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) {
                 if (isset($Lien["sous-categorie"])) {
                     foreach ($Lien["sous-categorie"] as $index_sc => $sous_categorie) {
                         if (!isset($sc)) {
@@ -43,56 +43,29 @@
     } while ($i < count($sc));
     sort($afficher);
     foreach ($afficher as $index_a => $cocktails) {
-        $TL = null;
     ?>
         <div>
-             <?php
-            if (isset($_COOKIE['L'.$cocktails])) {
-                if ($_COOKIE['L'.$cocktails] != "false") {
-                    if (isset($_SESSION['like'])) {
-                        $TL = $_SESSION['like'];
-                     }
-                     if ($TL == null || !in_array($cocktails, $TL)) {
-                        $TL[] = $_COOKIE['L'.$cocktails];
-                     }
-                     $_SESSION['like'] = $TL;
-                     var_dump($TL);
-                }else
-                {
-                    if (isset($_SESSION['like'])) {
-                        $TL = $_SESSION['like'];
-                        $pos = array_search($cocktails, $TL);
-                        array_splice($TL, $pos);
-                        $_SESSION['like'] = $TL;
-                    }
-                }
-                
-            }
-            //setcookie('L'.$cocktails, null, time() - 3600);
-            ?>
-                
-            <button class="btn" id="<?php echo $cocktails;?>">
-            <?php 
-            if(isset($_SESSION['like'])) {
-                if (in_array($cocktails,$_SESSION['like'])) {
-                    ?>
-                    <img  class="svg"  src="..\svg\coeurplein.svg" alt="">
+
+            <button class="btn" id="<?php echo $cocktails; ?>">
+                <?php
+                if (isset($_SESSION['like'])) {
+                    if (in_array($cocktails, $_SESSION['like'])) {
+                ?>
+                        <img class="svg" src="..\svg\coeurplein.svg" alt="">
                     <?php
+                    } else {
+                    ?>
+                        <img class="svg" src="..\svg\coeurvide.svg" alt="">
+                    <?php
+                    }
                 } else {
                     ?>
-                    <img class="svg"  src="..\svg\coeurvide.svg" alt="">
-                    <?php
+                    <img class="svg" src="..\svg\coeurvide.svg" alt="">
+                <?php
                 }
-            } else {
                 ?>
-                    <img class="svg"  src="..\svg\coeurvide.svg" alt="">
-                    <?php
-            }
-
-            ?>
-            
             </button>
-           
+
             <p>
                 <?php
                 Afficher_Image($Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]);
@@ -114,7 +87,7 @@
     ?>
 
     <script>
-        $('.btn').on('click',function(){
+        $('.btn').on('click', function() {
             var btn = $(this);
             var svg = btn.find("img");
             var indice = (this.id);
@@ -125,7 +98,9 @@
             }
             $.ajax({
                 url: 'like.php',
-                data: {indice: indice}
+                data: {
+                    indice: indice
+                }
             });
         });
     </script>

@@ -7,6 +7,9 @@ if (isset($_GET['indice'])) {
     }
     if ($indice != null && in_array($_GET['indice'], $indice)) {
         array_splice($indice, array_search($_GET['indice'], $indice),1);
+        if (count($indice) == 0) {
+            $indice = null;
+        }
     }else
     {
         $indice[] = $_GET['indice'];
@@ -14,4 +17,3 @@ if (isset($_GET['indice'])) {
     $_SESSION['like'] = $indice;
 }
 var_dump($indice);
-?>  
