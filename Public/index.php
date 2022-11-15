@@ -8,6 +8,7 @@ session_start();
    <meta charset='utf-8'>
    <link rel="stylesheet" href="a.css">
    <title>Cocktails</title>
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <?php 
    include("..\Donnees.inc.php"); 
    include("..\Fonction.php");
@@ -24,7 +25,7 @@ session_start();
          <a href="?page=Aliment" ;>Navigation</a>
       </div>
       <div id="head-recettes" class="head-section">
-         <a href="#">Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </a>
+         <a href="?page=Like">Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </a>
       </div>
       <div id="search" class="head-section">
          <span>
@@ -67,7 +68,12 @@ session_start();
          require("recettesDetaille.php");
       } 
       else {
-         require("cocktails.php");
+         if ($_GET['page'] == "Like") {
+            require("like.php");
+         }else
+         {
+            require("cocktails.php");
+         }
       }
       ?>
 

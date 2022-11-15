@@ -9,8 +9,10 @@ if (isset($_COOKIE['L'.$_GET['Recettes']])) {
         if (isset($_SESSION['like'])) {
             $TL = $_SESSION['like'];
          }
+        if (!in_array($_GET['Recettes'], $TL)) {
          $TL[] = $_COOKIE['L'.$_GET['Recettes']];
          $_SESSION['like'] = $TL;
+        }
          //var_dump($_SESSION['like']);
     }else
     {
