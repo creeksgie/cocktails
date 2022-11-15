@@ -1,24 +1,7 @@
 <span>
-    <button class="btn" id="<?php echo $_GET['Recettes']; ?>">
-        <?php
-        if (isset($_SESSION['like'])) {
-            if (in_array($_GET['Recettes'], $_SESSION['like'])) {
-        ?>
-                <img class="svg" src="..\svg\coeurplein.svg" alt="">
-            <?php
-            } else {
-            ?>
-                <img class="svg" src="..\svg\coeurvide.svg" alt="">
-            <?php
-            }
-        } else {
-            ?>
-            <img class="svg" src="..\svg\coeurvide.svg" alt="">
-        <?php
-        }
-        ?>
-    </button>
     <?php
+    Afficher_Bouton_like($_GET['Recettes']);
+
     Afficher_Image($Recettes[$_GET['Recettes']][array_keys($Recettes[$_GET['Recettes']])[0]]);
     ?>
     <br>

@@ -2,6 +2,7 @@
     <p>Aliment Courant</p>
     <span>
         <?php
+        //permet de créer le file d'ariane
         if (!isset($_GET['page']) || $_GET['page'] == 'Aliment') {
             $Lien = $Hierarchie['Aliment'];
         ?>
@@ -31,6 +32,7 @@
         ?>
     </span>
     <?php
+    //permet de créer les Liens vers les sous catégories
     foreach ($Lien as $index_nav => $nav) {
         if ($index_nav != 'super-categorie') {
     ?>

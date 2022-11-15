@@ -17,3 +17,5 @@ if (isset($_GET['indice'])) {
     $_SESSION['like'] = $indice;
 }
 var_dump($indice);
+
+?>
