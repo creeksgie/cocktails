@@ -36,9 +36,7 @@ session_start();
          </form>
       </div>
       <div id="login" class="head-section">
-         <span>
-            Zone de connection
-         </span>
+          <a href="?page=Connexion">Zone de connection </a>
       </div>
    </header>
    <?php
@@ -54,10 +52,9 @@ session_start();
          }
          /*if(isset($_SESSION['user']))
       {
-          if(!isset($_GET['page'])) $_GET['page']='index';
-          if(in_array($_GET['page'],array('')))
-          {
-              include($_GET['page'].".php");
+          if(!isset($_GET['page']) && $_GET['page']== 'Connexion'){
+          } else {
+             require("connexion.php");
           }
       }
       else include('connexion.php');*/
