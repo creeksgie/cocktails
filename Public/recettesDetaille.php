@@ -17,25 +17,5 @@
     ?> <li><?= htmlentities($key4) ?></li>
     <?php
     }
-
     ?>
 </span>
-
-<script>
-    $('.btn').on('click', function() {
-        var btn = $(this);
-        var svg = btn.find("img");
-        var indice = (this.id);
-        if (svg.attr("src").match("coeurvide.svg")) {
-            svg.attr("src", "../svg/coeurplein.svg");
-        } else {
-            svg.attr("src", "../svg/coeurvide.svg");
-        }
-        $.ajax({
-            url: 'like.php',
-            data: {
-                indice: indice
-            }
-        });
-    });
-</script>

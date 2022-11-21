@@ -86,5 +86,5 @@ session_start();
       yo
    </footer>
 </body>
-
+   <script src="..\FonctionJS.js"></script>
 </html>

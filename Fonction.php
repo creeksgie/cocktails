@@ -1,7 +1,7 @@
 <?php
-
 /***
  * Fonction qui permet d'afficher les images des cocktails
+ * @param string $mot nom du cocktail
  */
 function Afficher_Image($mot)
 {
@@ -68,14 +68,18 @@ function Afficher_Image($mot)
     }
 }
 
-function Afficher_Bouton_like($cocktails)
+/**
+ * Fonction qui permet d'afficher le bouton like
+ * @param int $cocktail l'indice du cocktail
+ */
+function Afficher_Bouton_like($cocktail)
 {
     ?>
-    <button class="btn" id="<?php echo $cocktails; ?>">
+    <button class="btn" id="<?php echo $cocktail; ?>">
         <?php
         //on affiche un coeur plein si le cocktail est dans le tableau des likes sinon on affiche un coeur vide
         if (isset($_SESSION['like'])) {
-            if (in_array($cocktails, $_SESSION['like'])) {
+            if (in_array($cocktail, $_SESSION['like'])) {
         ?>
                 <img class="svg" src="..\svg\coeurplein.svg" alt="">
             <?php
@@ -96,9 +100,11 @@ function Afficher_Bouton_like($cocktails)
 
 /***
  * Fonction qui permet d'afficher la version synthétique des recettes
+ * @param int $cocktails
  */
-function Afficher_Recette_synt($cocktails, $tab)
+function Afficher_Recette_synt($cocktails)
 {
+    global $Recettes;
 ?>
     <div>
         <?php
@@ -106,16 +112,16 @@ function Afficher_Recette_synt($cocktails, $tab)
         ?>
         <p>
             <?php
-            Afficher_Image($tab[array_keys($tab)[0]]);
+            Afficher_Image($Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]);
             ?>
             <br>
 
-            <a href="?page=<?php echo $_GET['page']; ?>&Recettes=<?php echo $cocktails; ?>"><?php echo $tab[array_keys($tab)[0]]; ?></a>
+            <a href="?page=<?php echo $_GET['page']; ?>&Recettes=<?php echo $cocktails; ?>"><?php echo $Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]; ?></a>
         </p>
         <ul>
             <?php
             //on affiche les ingrédients
-            foreach ($tab[array_keys($tab)[3]] as $ing) {
+            foreach ($Recettes[$cocktails][array_keys($Recettes[$cocktails])[3]] as $ing) {
             ?> <li><?= htmlentities($ing) ?></li>
             <?php
             }
@@ -124,6 +130,54 @@ function Afficher_Recette_synt($cocktails, $tab)
 <?php
 }
 
+/**
+ * Fonction qui permet de parcourir le tableau des recettes et de mettre les cocktails qui contiennent les ingrédients recherchés dans un tableau
+ * @param array $Lien Lien à l'ingrédient recherché (ex : $Hierarchie['ingrédient'])
+ * @return array 
+ */
+function Tourner_Recettes($Lien)
+{
+    global $Recettes, $Hierarchie;
+    $i = -1;
+    $sc = null;
+
+    do {
+        foreach ($Recettes as $index_c => $cocktails) {                                     //on parcours le tableau des cocktails
+            foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) { //on parcours le tableau des ingrédients
+                if (isset($Lien["sous-categorie"])) {                                       //si on est sur les sous-catégories de la page
+                    foreach ($Lien["sous-categorie"] as $index_sc => $sous_categorie) {     //on parcours le tableau des sous-catégories
+                        if (!isset($sc)) { 
+                            $sc[] = $sous_categorie;                                        //on stocke la première sous-catégorie 
+                        } elseif (!in_array($sous_categorie, $sc)) {                        //si la sous-catégorie n'est pas déjà stockée
+                            $sc[] = $sous_categorie;                                        //on stocke la sous-catégorie
+                        }
+                        if ($ingredients == $sous_categorie) {                              //si l'ingrédient est égal à la sous-catégorie
+                            if (!isset($afficher)) { 
+                                $afficher[] = $index_c;                                     //on stocke le premier cocktail
+                            } elseif (!in_array($index_c, $afficher)) {                     //si le cocktail n'est pas déjà stocké
+                                $afficher[] = $index_c;                                     //on stocke le cocktail
+                            }
+                        }
+                    }
+                }
+                //affiche tout les cocktails contenant l'ingrédient courant 
+                if (!isset($_GET['page']) || $ingredients == $_GET['page']) {               //si on est sur la page Aliment ou si l'ingrédient est égal à la page
+                    if (!isset($afficher)) { 
+                        $afficher[] = $index_c;                                             //on stocke le premier cocktail
+                    } elseif (!in_array($index_c, $afficher)) {                             //si le cocktail n'est pas déjà stocké
+                        $afficher[] = $index_c;                                             //on stocke le cocktail
+                    }
+                }
+            }
+        }
+
+        $i++;                                                                               //on incrémente i pour passer à la sous-catégorie suivante
+        if (isset($sc[$i])) {                                                               //si la sous-catégorie existe
+            $Lien = $Hierarchie[$sc[$i]];                                                   //on change le lien
+        }
+    } while ($i < count($sc));                                                              //on recommence tant que i est inférieur au nombre de sous-catégories
+    return $afficher;
+}
 
 
 ?>
