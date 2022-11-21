@@ -46,7 +46,7 @@ session_start();
    ?>
       <nav>
          <?php
-         if (isset($_GET['page']) && $_GET['page'] == "Like") {
+         if (isset($_GET['page']) && (($_GET['page'] == "Like") || ($_GET['page'] == "Connexion"))) {
          } else {
             require("navigation.php");
          }
@@ -68,7 +68,12 @@ session_start();
             if (isset($_GET['page']) && $_GET['page'] == "Like") {
                require("afficherLike.php");
             } else {
-               require("cocktails.php");
+               if (isset($_GET['page']) && $_GET['page'] == "Connexion") {
+                  require("connexion.php");
+               }else {
+                  require("cocktails.php");
+               }
+               
             }
          }
          ?>
