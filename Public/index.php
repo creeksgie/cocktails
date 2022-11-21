@@ -22,20 +22,18 @@ session_start();
     margin-right: 0px;">
    <header>
       <div id="head-nav" class="head-section">
-         <a href="?page=Aliment" ;>Navigation</a>
+         <a href="?page=Aliment">Navigation</a>
       </div>
       <div id="head-recettes" class="head-section">
          <a href="?page=Like">Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </a>
       </div>
       <div id="search" class="head-section">
-         <span>
-            <form action="./" class="hide-submit" method="POST">
-               <input name="ingredient" type="text" required="required" />
-               <label>
-                  <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
-               </label>
-            </form>
-         </span>
+         <form action="./" class="hide-submit" method="POST">
+            <input name="ingredient" type="text" required="required" />
+            <label>
+               <button><img class="svg" src="..\svg\loupe.svg" alt=""></button>
+            </label>
+         </form>
       </div>
       <div id="login" class="head-section">
          <span>
