@@ -138,6 +138,8 @@ function Afficher_Recette_synt($cocktails)
 function Tourner_Recettes($Lien)
 {
     global $Recettes, $Hierarchie;
+    $nom = $Lien;
+    $Lien = $Hierarchie[$Lien];
     $i = -1;
     $sc = null;
 
@@ -161,7 +163,7 @@ function Tourner_Recettes($Lien)
                     }
                 }
                 //affiche tout les cocktails contenant l'ingrédient courant 
-                if (!isset($_GET['page']) || $ingredients == $_GET['page']) {               //si on est sur la page Aliment ou si l'ingrédient est égal à la page
+                if ($ingredients == $nom) {               //si on est sur la page Aliment ou si l'ingrédient est égal à la page
                     if (!isset($afficher)) { 
                         $afficher[] = $index_c;                                             //on stocke le premier cocktail
                     } elseif (!in_array($index_c, $afficher)) {                             //si le cocktail n'est pas déjà stocké
@@ -180,4 +182,64 @@ function Tourner_Recettes($Lien)
 }
 
 
+/**
+ * 
+ */
+function rechercheDansTab(&$tableauConnu,&$tabNonVoulu,&$tableauInconnu, $Recherche)
+{
+    $RecherchePossible=false;
+    $Cmpt=substr_count($Recherche, '"')/2;
+    if(preg_match('/(\+|-)?"([^"]+)"/', $Recherche)){
+        $ListMotComp = null;
+        preg_match_all('/(\+|-)?"([^"]+)"/', $Recherche, $ListMotComp);
+        $Recherche = preg_replace('/( (\+|-)?"([^"]+)"|(\+|-)?"([^"]+)")/', "", $Recherche);
+        for($i=0;$i<$Cmpt;$i++){
+            $MotsComposer=str_replace('"', "", $ListMotComp[0][$i]);
+            pushDansTab($tableauConnu,$tabNonVoulu,$tableauInconnu, $MotsComposer);
+        }
+        $RecherchePossible=true;
+
+    }
+    if($Recherche != ""){
+        $List_Recherche = explode(" ", $Recherche);
+        foreach($List_Recherche as $index=>$Mot){
+            pushDansTab($tableauConnu,$tabNonVoulu,$tableauInconnu, $Mot);
+        }
+        $RecherchePossible=true;
+
+    }
+    return $RecherchePossible;
+}
+
+function pushDansTab(&$tabVoulu,&$tabNonVoulu,&$tableauInconnu, $Mot)
+{
+    global $Hierarchie;
+    $MotPush=false;
+    if(preg_match('/^\+?[A-Z][a-z]+/',$Mot)){
+        if(preg_match('/^\+/', $Mot)){
+            $Mot = substr($Mot, 1);
+            if(array_key_exists($Mot, $Hierarchie)){
+                $MotPush=true;
+                array_push($tabVoulu, $Mot);
+            }
+        }
+        else{
+            if(array_key_exists($Mot, $Hierarchie)){
+                $MotPush=true;
+                array_push($tabVoulu, $Mot);
+            }
+        }
+    }
+    if(preg_match("/^-[A-Z][a-z]+/",$Mot))
+    {
+        $Mot = substr($Mot, 1);
+        if(array_key_exists($Mot, $Hierarchie)){
+            $MotPush=true;
+            array_push($tabNonVoulu, $Mot);
+        }
+    }
+    if(!$MotPush){
+        array_push($tableauInconnu, $Mot);
+    }
+}
 ?>

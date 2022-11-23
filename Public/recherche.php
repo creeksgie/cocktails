@@ -5,117 +5,103 @@ $TabInconnu = array();
 $TabCocktail = null;
 $TabMotsComposer=null;
 $List_Recherche_Tmp= $_POST['ingredient'];
-$RecherchePossible = true;
+$RecherchePossible=false;
+$NbQuote=true;
 
-
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-
-if(substr_count($List_Recherche_Tmp, '"')%2==0)
-{
-    $Cmpt=substr_count($List_Recherche_Tmp, '"')/2;
-    preg_match_all('/(\+|-)?"([^"]+)"/', $List_Recherche_Tmp, $TabMotsComposer);
-    $List_Recherche_Tmp = preg_replace('/( (\+|-)?"([^"]+)"|(\+|-)?"([^"]+)")/', "", $List_Recherche_Tmp);
-    
-    for($i =0; $i<$Cmpt; $i++){
-        
-        $MotsComposer=str_replace('"', "", $TabMotsComposer[0][$i]);
-        echo $MotsComposer;
-        if(preg_match('/^\+/',$MotsComposer)){
-            $MotsComposer = preg_replace('/^\+/', "", $MotsComposer);
-            if (array_key_exists($MotsComposer, $Hierarchie))
-                array_push($TabAlimentVoulu, $MotsComposer);
-            else
-                array_push($TabInconnu, $MotsComposer);
-        }
-        else if(preg_match('/^[A-Z]/',$MotsComposer)){
-            if (array_key_exists($MotsComposer, $Hierarchie))
-                array_push($TabAlimentVoulu, $MotsComposer);
-            else
-                array_push($TabInconnu, $MotsComposer);
-        }
-        
-        else if (preg_match('/^\-/',$TabMotsComposer[0][$i])){
-            $MotsComposer = preg_replace('/^\-/', "", $MotsComposer);
-            if (array_key_exists($MotsComposer, $Hierarchie))
-                array_push($TabAlimentNonDesire, $MotsComposer);
-            else
-                array_push($TabInconnu, $MotsComposer);
-        }
-        else{
-            array_push($TabInconnu, $MotsComposer);
-        }
-    }
-
-    
-    //var_dump(trim($TabMotsComposer[0], "\""));
-    if($List_Recherche_Tmp != "")
+if(!preg_match('/^ +/', $List_Recherche_Tmp)){
+    if(substr_count($List_Recherche_Tmp, '"')%2==0)
     {
-        $List_Recherche = explode(" ", $List_Recherche_Tmp);
-        foreach ($List_Recherche as $index => $recherche) {
-            if (preg_match("/^\+?[A-Z]{1}[a-z]+/", $recherche)) {
-                if (preg_match("/^\+/", $recherche))
-                    $recherche = substr($recherche, 1);
-                if (array_key_exists($recherche, $Hierarchie))
-                    $TabAlimentVoulu[] = $recherche;
-                else
-                    $TabInconnu[] = $recherche;
-            } elseif (preg_match("/^-[A-Z]{1}[a-z]+/", $recherche)) {
-                $recherche = substr($recherche, 1);
-                if (array_key_exists($recherche, $Hierarchie))
-                    $TabAlimentNonDesire[] = $recherche;
-                else
-                    $TabInconnu[] = $recherche;
-            } else {
-                $TabInconnu[] = $recherche;
-            }
-        }
+        $RecherchePossible = rechercheDansTab($TabAlimentVoulu,$TabAlimentNonDesire,$TabInconnu, $List_Recherche_Tmp);
     }
-    else
-    {
-        $List_Recherche = null;
+    else{
+        $NbQuote=false;
     }
 }
-else
-{
-    $RecherchePossible = false;
-}
+
 
 
 ?>
 <nav>
-
+    <article>
+        <span>
+        <?php
+            if(!$NbQuote){
+                echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes";
+            }
+            else{
+                if(!empty($TabAlimentVoulu))
+                {
+                    ?>
+                    <p>Aliment voulu :</p>
+                    <?php
+                    echo implode(", ", $TabAlimentVoulu)."<br>"; 
+                }
+                if(!empty($TabAlimentNonDesire))
+                {
+                    ?>
+                    <p>Aliment non désiré :</p>
+                    <?php
+                    echo implode(", ", $TabAlimentNonDesire)."<br>";
+                }
+                if(!empty($TabInconnu))
+                {
+                    ?>
+                    <p>Aliment inconnu :</p>
+                    <?php
+                    echo implode(", ", $TabInconnu)."<br>";
+                }
+                
+            }
+        ?>
+        </span>
+    </article>
 </nav>
 <main>
-    <span>
+    <article>
+        <span>
         <?php
         //$x = $_POST['ingredient'];
-        if($RecherchePossible){
-            echo "TabMotComposer : ";
-        var_dump($TabMotsComposer[0]);
-        echo "<br>";
-        echo " liste : ";
-        var_dump($List_Recherche_Tmp);
-        echo "<br>";
-        echo "Recherche : ";
-        var_dump($List_Recherche);
-        echo "<br>";
-        echo "Aliment Voulu : ";
-        var_dump($TabAlimentVoulu);
-        echo "<br>";
-        echo "Aliment Non Voulu : ";
-        var_dump($TabAlimentNonDesire);
-        echo "<br>";
-        echo "Inconnu : ";
-        var_dump($TabInconnu);
+        if($RecherchePossible && $NbQuote){
+        ?>
+        </span>
+        <?php
+        
+        if (empty($TabAlimentVoulu)) {
+            $TabAlimentVoulu[] = 'Aliment';
+        }
+       
+        foreach ($TabAlimentVoulu as $index => $recherche) {
+            $afficher[] = Tourner_Recettes($recherche);
+        }
+        foreach($afficher as $index=>$tab){
+            foreach($tab as $index2=>$recette){
+                $TabCocktail[]=$recette;
+            }
+        }
+        if (!empty($TabAlimentNonDesire)) {
+            $afficher = null;
+            foreach ($TabAlimentNonDesire as $index => $recherche) {
+                $afficher[] = Tourner_Recettes($recherche);
+            }
+            foreach($afficher as $index=>$tab){
+                foreach($tab as $index2=>$recette){
+                    $TabNonVoulu[]=$recette;
+                }
+            }
+            foreach($TabNonVoulu as $index=>$recette){
+                unset($TabCocktail[array_search($recette, $TabCocktail)]);
+            }
+        }
+        sort($TabCocktail);                                                                        //on trie le tableau des cocktails à afficher
+        foreach ($TabCocktail as $index_a => $cocktails) {                                         //on affiche la recettes synthétique pour chaque cocktails présent dans le tableau
+
+                Afficher_Recette_Synt($cocktails);
+        }
         }
         else
         {
-            echo "Erreur de syntaxe";
+            echo "Problème dans votre requête: Recherche impossible";
+            ?></span><?php
         }
         //match les s dans $x 
         /*$regex = '/s/';
@@ -126,5 +112,5 @@ else
     //affiche le nombre de s dans $x
     */
         ?>
-    </span>
+    </article>
 </main>

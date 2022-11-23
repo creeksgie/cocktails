@@ -13,6 +13,7 @@ session_start();
    include("..\Donnees.inc.php");
    include("..\Fonction.php");
    ?>
+   <link rel="icon" href="..\Photos\cocktail.png" />
 </head>
 
 <body style="
@@ -83,7 +84,7 @@ session_start();
    }
    ?>
    <footer>
-      yo
+      Projet Programmation Web 2022 : PIVETEAU Théo, ZULIANI Cedric, LETULE Luc
    </footer>
 </body>
    <script src="..\FonctionJS.js"></script>

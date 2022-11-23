@@ -81,6 +81,18 @@ if(isset($_POST['submit']))
 
         <h3>Votre Date de Naissance :</h3>
         <input type="date" class="<?php echo $ClassDN; ?>" name="dateN"
+
+        <span>Votre Nom :</span>
+        <input type="text" name="nom"
+               value="<?php if(isset($_POST['nom'])) echo $_POST['nom'];?>"/> <br />
+
+        <span>Votre Prenom :</span>
+        <input type="text" name="prenom"
+               value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom'];?>"/> <br />
+
+        <span>Votre Date de Naissance :</span>
+        <input type="date" name="dateN"
+
                value="<?php if(isset($_POST['dateN'])) echo$_POST['dateN'];?>"/> <br />
     </fieldset>
 <br/>
