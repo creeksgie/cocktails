@@ -49,15 +49,15 @@
         <input type="text" name="mdp"
                value="<?php if(isset($_POST['mdp'])) echo $_POST['mdp'];?>"/> <br />
 
-        Votre Nom :
+        <span>Votre Nom :</span>
         <input type="text" name="nom"
                value="<?php if(isset($_POST['nom'])) echo $_POST['nom'];?>"/> <br />
 
-        Votre Prenom :
+        <span>Votre Prenom :</span>
         <input type="text" name="prenom"
                value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom'];?>"/> <br />
 
-        Votre Date de Naissance :
+        <span>Votre Date de Naissance :</span>
         <input type="date" name="dateN"
                value="<?php if(isset($_POST['dateN'])) echo$_POST['dateN'];?>"/> <br />
     </fieldset>

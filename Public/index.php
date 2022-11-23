@@ -13,6 +13,7 @@ session_start();
    include("..\Donnees.inc.php");
    include("..\Fonction.php");
    ?>
+   <link rel="icon" href="..\Photos\cocktail.png" />
 </head>
 
 <body style="
