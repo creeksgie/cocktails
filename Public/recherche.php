@@ -22,21 +22,39 @@ if(!preg_match('/^ +/', $List_Recherche_Tmp)){
 
 ?>
 <nav>
-    <span>
-    <?php
-        if(!$NbQuote){
-            echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes";
-        }
-        else{
-            if(!empty($TabAlimentVoulu))
-                echo "Aliment voulu : ".implode(", ", $TabAlimentVoulu)."<br>"; 
-            if(!empty($TabAlimentNonDesire))
-                echo "Aliment non désiré : ".implode(", ", $TabAlimentNonDesire)."<br>";
-            if(!empty($TabInconnu))
-                echo "Aliment inconnu : ".implode(", ", $TabInconnu)."<br>";
-        }
-    ?>
-    </span>
+    <article>
+        <span>
+        <?php
+            if(!$NbQuote){
+                echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes";
+            }
+            else{
+                if(!empty($TabAlimentVoulu))
+                {
+                    ?>
+                    <p>Aliment voulu :</p>
+                    <?php
+                    echo implode(", ", $TabAlimentVoulu)."<br>"; 
+                }
+                if(!empty($TabAlimentNonDesire))
+                {
+                    ?>
+                    <p>Aliment non désiré :</p>
+                    <?php
+                    echo implode(", ", $TabAlimentNonDesire)."<br>";
+                }
+                if(!empty($TabInconnu))
+                {
+                    ?>
+                    <p>Aliment inconnu :</p>
+                    <?php
+                    echo implode(", ", $TabInconnu)."<br>";
+                }
+                
+            }
+        ?>
+        </span>
+    </article>
 </nav>
 <main>
     <article>
@@ -44,19 +62,6 @@ if(!preg_match('/^ +/', $List_Recherche_Tmp)){
         <?php
         //$x = $_POST['ingredient'];
         if($RecherchePossible && $NbQuote){
-        echo "<br>";
-        echo " liste : ";
-        var_dump($List_Recherche_Tmp);
-        echo "<br>";
-        echo "Aliment Voulu : ";
-        var_dump($TabAlimentVoulu);
-        echo "<br>";
-        echo "Aliment Non Voulu : ";
-        var_dump($TabAlimentNonDesire);
-        echo "<br>";
-        echo "Inconnu : ";
-        var_dump($TabInconnu);
-        echo "<br>";
         ?>
         </span>
         <?php
