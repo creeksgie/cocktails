@@ -83,7 +83,7 @@ session_start();
    }
    ?>
    <footer>
-      yo
+      Projet Programmation Web 2022 : PIVETEAU Théo, ZULIANI Cedric, LETULE Luc
    </footer>
 </body>
    <script src="..\FonctionJS.js"></script>
