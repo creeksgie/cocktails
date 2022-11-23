@@ -2,9 +2,9 @@
     <?php
     //creation du $Lien en fonction de la page
     if (!isset($_GET['page']) || $_GET['page'] == 'Aliment') {
-        $Lien = $Hierarchie['Aliment'];
+        $Lien = 'Aliment';
     } else {
-        $Lien = $Hierarchie[$_GET['page']];
+        $Lien = $_GET['page'];
     }
 
     $afficher = Tourner_Recettes($Lien);
