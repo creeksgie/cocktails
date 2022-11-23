@@ -190,7 +190,7 @@ function rechercheDansTab(&$tableauConnu,&$tabNonVoulu,&$tableauInconnu, $Recher
     $RecherchePossible=false;
     $Cmpt=substr_count($Recherche, '"')/2;
     if(preg_match('/(\+|-)?"([^"]+)"/', $Recherche)){
-        $ListMotComp;
+        $ListMotComp = null;
         preg_match_all('/(\+|-)?"([^"]+)"/', $Recherche, $ListMotComp);
         $Recherche = preg_replace('/( (\+|-)?"([^"]+)"|(\+|-)?"([^"]+)")/', "", $Recherche);
         for($i=0;$i<$Cmpt;$i++){
