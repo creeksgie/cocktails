@@ -7,14 +7,6 @@ $TabMotsComposer=null;
 $List_Recherche_Tmp= $_POST['ingredient'];
 $RecherchePossible = true;
 
-
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-echo "<br>";
-
 if(substr_count($List_Recherche_Tmp, '"')%2==0)
 {
    $RecherchePossible = rechercheDansTab($TabAlimentVoulu,$TabAlimentNonDesire,$TabInconnu, $List_Recherche_Tmp);
@@ -31,7 +23,6 @@ if(substr_count($List_Recherche_Tmp, '"')%2==0)
         <?php
         //$x = $_POST['ingredient'];
         if($RecherchePossible){
-
         echo "<br>";
         echo " liste : ";
         var_dump($List_Recherche_Tmp);
@@ -45,12 +36,15 @@ if(substr_count($List_Recherche_Tmp, '"')%2==0)
         echo "Inconnu : ";
         var_dump($TabInconnu);
         echo "<br>";
+        ?>
+        </span>
+        <?php
         foreach ($TabAlimentVoulu as $index => $recherche) {
             $afficher[] = Tourner_Recettes($recherche);
         }
 
         sort($afficher);                                                                        //on trie le tableau des cocktails à afficher
-        var_dump($afficher);
+        echo "<br>";
         foreach ($afficher as $index_a => $cocktails) {                                         //on affiche la recettes synthétique pour chaque cocktails présent dans le tableau
             foreach($cocktails as $index_c => $cocktail){
                 Afficher_Recette_Synt($cocktail);
@@ -71,6 +65,5 @@ if(substr_count($List_Recherche_Tmp, '"')%2==0)
     //affiche le nombre de s dans $x
     */
         ?>
-        </span>
     </article>
 </main>

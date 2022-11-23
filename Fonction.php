@@ -205,7 +205,6 @@ function rechercheDansTab(&$tableauConnu,&$tabNonVoulu,&$tableauInconnu, $Recher
         foreach($List_Recherche as $index=>$Mot){
             pushDansTab($tableauConnu,$tabNonVoulu,$tableauInconnu, $Mot);
         }
-        var_dump($tableauConnu);
         $RecherchePossible=true;
 
     }
