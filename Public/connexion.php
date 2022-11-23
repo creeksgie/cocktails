@@ -1,79 +1,94 @@
 
-<span id="login">
 <?php
-    function est_vide($chaine)
-    {
-        return(trim($chaine)=='');
+
+if(isset($_POST['submit']))
+{
+    $ClassLogin='ok';
+    $ClassMdp='ok';
+    $ClassNom='ok';
+    $ClassPrenom='ok';
+    $ClassSexe='ok';
+    $ClassDN='ok';
+    $ChampsIncorrects='';
+
+    if((!isset($_POST['login']))){
+        $ChampsIncorrects=$ChampsIncorrects.'<li>login</li>';
+        $ClassLogin='error';
     }
 
-    $complet=true;
-    if(isset($_GET["submit"]))
-    {
-        if(   !est_vide($_GET["login"])
-           && !est_vide($_GET["mdp"])
-           && !est_vide($_GET["nom"])
-            && !est_vide($_GET["prenom"])
-            && !est_vide($_GET["dateN"])
-           )
-        {
-            $_SESSION['user']['nom'] =$_GET["nom"];
-            $_SESSION['user']['prenom'] = $_GET["prenom"];
-            $_SESSION['user']['dateN'] = $_GET["dateN"];
-            $complet = true;
-        }
+    if((!isset($_POST['mdp']))){
+        $ChampsIncorrects=$ChampsIncorrects.'<li>mdp</li>';
+        $ClassLogin='error';
     }
 
-    if($complet)
-    {
-        //include('index.php');
+    if((!isset($_POST['nom']))){
+        $ChampsIncorrects=$ChampsIncorrects.'<li>nom</li>';
+        $ClassLogin='error';
+    }
+
+    if((!isset($_POST['prenom']))){
+        $ChampsIncorrects=$ChampsIncorrects.'<li>prenom</li>';
+        $ClassLogin='error';
+    }
+
+    if((!isset($_POST['sexe'])) ||(  (trim($_POST['sexe'])!='f') &&(trim($_POST['sexe'])!='h'))) {
+        $ChampsIncorrects=$ChampsIncorrects.'<li>sexe</li>';
+        $ClassSexe='error';
+    }
+
+    if((!isset($_POST['dateN'])) || (trim($_POST['dateN'])=='')){
+        $ChampsIncorrects=$ChampsIncorrects.'<li>dateN</li>';
+        $ClassLogin='error';
     }
     else{
-        if(isset($_GET['submit']))
-        {
-            echo 'Veuillez compléter tous les champs si vous plait';
-        }
-        else{
-            echo 'Veuillez remplir le formulaire';
+        $Naissance=trim($_POST['naissance']);
+        list($Annee,$Mois, $Jour)=explode('-',$Naissance);
+        if(!checkdate($Mois,$Jour,$Annee))
+        { $ChampsIncorrects=$ChampsIncorrects.'<li>date de naissance</li>';
+            $ClassNaissance='error';
         }
     }
+}
 ?>
-
-</span>
-<form method="get" action="?page=connexion">
+<form method="post" action="?page=index">
     <fieldset>
+        <legend><h1>Inscriptions :</h1></legend>
         <h2>Votre login :</h2>
-        <input type="text" name="login"
+        <input type="text" class="<?php echo $ClassLogin; ?>" name="login" required="required"
                value="<?php if(isset($_POST['login'])) echo $_POST['login'];?>"/> <br />
 
         <h2>Votre Mot de Passe :</h2>
-        <input type="text" name="mdp"
+        <input type="password" class="<?php echo $ClassMdp; ?>" name="mdp" required="required"
                value="<?php if(isset($_POST['mdp'])) echo $_POST['mdp'];?>"/> <br />
 
-        Votre Nom :
-        <input type="text" name="nom"
+        <h3>Votre Nom :</h3>
+        <input type="text" class="<?php echo $ClassNom; ?>" name="nom"
                value="<?php if(isset($_POST['nom'])) echo $_POST['nom'];?>"/> <br />
 
-        Votre Prenom :
-        <input type="text" name="prenom"
+        <h3>Votre Prenom :</h3>
+        <input type="text" class="<?php echo $ClassPrenom; ?>" name="prenom"
                value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom'];?>"/> <br />
 
-        Votre Date de Naissance :
-        <input type="date" name="dateN"
+        <h3>Votre Sexe :</h3>
+        <span class="<?php echo $ClassSexe; ?>">
+	    <input type="radio" name="sexe" value="f"
+	    <?php if((isset($_POST['sexe']))&&($_POST['sexe'])=='f') echo 'checked="checked"'; ?>
+	    /> une femme
+	    <input type="radio" class="<?php echo $ClassSexe; ?>" name="sexe" value="h"
+	    <?php if((isset($_POST['sexe']))&&($_POST['sexe'])=='h') echo 'checked="checked"'; ?>
+	    /> un homme
+        </span>
+
+        <h3>Votre Date de Naissance :</h3>
+        <input type="date" class="<?php echo $ClassDN; ?>" name="dateN"
                value="<?php if(isset($_POST['dateN'])) echo$_POST['dateN'];?>"/> <br />
     </fieldset>
 <br/>
-<input type="submit" name="inscrire" value="inscrit"/>
+<input type="submit" name="submit" value="s'inscrire"/>
 </form>
 
 <?php
-if (isset($_POST["login"]) && isset($_POST["mdp"])){
-    foreach ($users as $user){
-        if ( $user["login"] === $_POST["login"] && $user["mdp"] === $_POST["mdp"]){
-            $loggedUser = ['email' => $user['login'],];
-        }
-        else{
-            $php_errormsg = sprintf('Erreur: Login et/ou mot de passe incorrecte : (%s/%s)',$_POST['login'],$_POST['mdp']);
-        }
-    }
+if(isset($_POST['submit'])){
+    echo "<br/>Merci de remplir correctement le formulaire ci-dessous :<ul>".$ChampsIncorrects."</ul>";
 }
 ?>
