@@ -89,8 +89,11 @@ if(!preg_match('/^ +/', $List_Recherche_Tmp)){
                 }
             }
             foreach($TabNonVoulu as $index=>$recette){
-                unset($TabCocktail[array_search($recette, $TabCocktail)]);
+                if (array_search($recette, $TabCocktail)) {
+                    array_splice($TabCocktail, array_search($recette, $TabCocktail),1);
+                }
             }
+            
         }
         sort($TabCocktail);                                                                        //on trie le tableau des cocktails à afficher
         foreach ($TabCocktail as $index_a => $cocktails) {                                         //on affiche la recettes synthétique pour chaque cocktails présent dans le tableau
