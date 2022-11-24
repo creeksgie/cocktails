@@ -25,8 +25,6 @@ else{
     <article>
         <span>
         <?php
-        echo "Recherche : ".$List_Recherche_Tmp;
-        var_dump($TabInconnu);
             if(!$NbQuote){
                 echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes";
             }
@@ -63,6 +61,9 @@ else{
         <span>
         <?php
         //$x = $_POST['ingredient'];
+        if(empty($TabAlimentVoulu) && empty($TabAlimentNonDesire)){
+            $RecherchePossible=false;
+        }
         if($RecherchePossible && $NbQuote){
         ?>
         </span>
