@@ -215,31 +215,33 @@ function pushDansTab(&$tabVoulu,&$tabNonVoulu,&$tableauInconnu, $Mot)
 {
     global $Hierarchie;
     $MotPush=false;
-    if(preg_match('/^\+?[A-Z][a-z]+/',$Mot)){
-        if(preg_match('/^\+/', $Mot)){
+    if(!empty($Mot)){
+        if(preg_match('/^\+?[A-Z][a-z]+/',$Mot)){
+            if(preg_match('/^\+/', $Mot)){
+                $Mot = substr($Mot, 1);
+                if(array_key_exists($Mot, $Hierarchie)){
+                    $MotPush=true;
+                    array_push($tabVoulu, $Mot);
+                }
+            }
+            else{
+                if(array_key_exists($Mot, $Hierarchie)){
+                    $MotPush=true;
+                    array_push($tabVoulu, $Mot);
+                }
+            }
+        }
+        if(preg_match("/^-[A-Z][a-z]+/",$Mot))
+        {
             $Mot = substr($Mot, 1);
             if(array_key_exists($Mot, $Hierarchie)){
                 $MotPush=true;
-                array_push($tabVoulu, $Mot);
+                array_push($tabNonVoulu, $Mot);
             }
         }
-        else{
-            if(array_key_exists($Mot, $Hierarchie)){
-                $MotPush=true;
-                array_push($tabVoulu, $Mot);
-            }
+        if(!$MotPush){
+            array_push($tableauInconnu, $Mot);
         }
-    }
-    if(preg_match("/^-[A-Z][a-z]+/",$Mot))
-    {
-        $Mot = substr($Mot, 1);
-        if(array_key_exists($Mot, $Hierarchie)){
-            $MotPush=true;
-            array_push($tabNonVoulu, $Mot);
-        }
-    }
-    if(!$MotPush){
-        array_push($tableauInconnu, $Mot);
     }
 }
 ?>

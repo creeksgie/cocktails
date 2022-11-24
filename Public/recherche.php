@@ -8,14 +8,14 @@ $List_Recherche_Tmp= $_POST['ingredient'];
 $RecherchePossible=false;
 $NbQuote=true;
 
-if(!preg_match('/^ +/', $List_Recherche_Tmp)){
-    if(substr_count($List_Recherche_Tmp, '"')%2==0)
-    {
-        $RecherchePossible = rechercheDansTab($TabAlimentVoulu,$TabAlimentNonDesire,$TabInconnu, $List_Recherche_Tmp);
-    }
-    else{
-        $NbQuote=false;
-    }
+if(preg_match('/^ +/', $List_Recherche_Tmp)){
+    preg_replace('/^ +/', '', $List_Recherche_Tmp);
+}
+if(substr_count($List_Recherche_Tmp, '"')%2==0){
+    $RecherchePossible = rechercheDansTab($TabAlimentVoulu,$TabAlimentNonDesire,$TabInconnu, $List_Recherche_Tmp);
+}
+else{
+    $NbQuote=false;
 }
 
 
@@ -25,6 +25,8 @@ if(!preg_match('/^ +/', $List_Recherche_Tmp)){
     <article>
         <span>
         <?php
+        echo "Recherche : ".$List_Recherche_Tmp;
+        var_dump($TabInconnu);
             if(!$NbQuote){
                 echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes";
             }
