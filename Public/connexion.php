@@ -18,17 +18,17 @@ if(isset($_POST['submit']))
 
     if((!isset($_POST['mdp']))){
         $ChampsIncorrects=$ChampsIncorrects.'<li>mdp</li>';
-        $ClassLogin='error';
+        $ClassMdp='error';
     }
 
     if((!isset($_POST['nom']))){
         $ChampsIncorrects=$ChampsIncorrects.'<li>nom</li>';
-        $ClassLogin='error';
+        $ClassNom='error';
     }
 
     if((!isset($_POST['prenom']))){
         $ChampsIncorrects=$ChampsIncorrects.'<li>prenom</li>';
-        $ClassLogin='error';
+        $ClassPrenom='error';
     }
 
     if((!isset($_POST['sexe'])) ||(  (trim($_POST['sexe'])!='f') &&(trim($_POST['sexe'])!='h'))) {
@@ -38,7 +38,7 @@ if(isset($_POST['submit']))
 
     if((!isset($_POST['dateN'])) || (trim($_POST['dateN'])=='')){
         $ChampsIncorrects=$ChampsIncorrects.'<li>dateN</li>';
-        $ClassLogin='error';
+        $ClassDN='error';
     }
     else{
         $Naissance=trim($_POST['naissance']);
@@ -48,9 +48,14 @@ if(isset($_POST['submit']))
             $ClassNaissance='error';
         }
     }
+
+    if($ChampsIncorrects==''){
+        session_start();
+        $_SESSION[login];
+    }
 }
 ?>
-<form method="post" action="?page=index">
+<form method="post" action="?page=Aliment">
     <fieldset>
         <legend><h1>Inscriptions :</h1></legend>
         <h2>Votre login :</h2>
@@ -80,20 +85,10 @@ if(isset($_POST['submit']))
         </span>
 
         <h3>Votre Date de Naissance :</h3>
-        <input type="date" class="<?php echo $ClassDN; ?>" name="dateN"
-
-        <span>Votre Nom :</span>
-        <input type="text" name="nom"
-               value="<?php if(isset($_POST['nom'])) echo $_POST['nom'];?>"/> <br />
-
-        <span>Votre Prenom :</span>
-        <input type="text" name="prenom"
-               value="<?php if(isset($_POST['prenom'])) echo $_POST['prenom'];?>"/> <br />
-
-        <span>Votre Date de Naissance :</span>
         <input type="date" name="dateN"
 
                value="<?php if(isset($_POST['dateN'])) echo$_POST['dateN'];?>"/> <br />
+
     </fieldset>
 <br/>
 <input type="submit" name="submit" value="s'inscrire"/>

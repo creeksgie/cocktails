@@ -37,7 +37,12 @@ session_start();
          </form>
       </div>
       <div id="login" class="head-section">
-          <a href="?page=Connexion">Zone de connection </a>
+          <a>Login :</a>
+          <input name="LoginIndex" type="text"/>
+          <a>Mot de Passe :</a>
+          <input name="MdpIndex" type="text"/>
+          <button name="Connex">CONNEXION</button>
+          <a href="?page=Connexion">INSCRIRE </a>
       </div>
    </header>
    <?php
@@ -84,7 +89,7 @@ session_start();
    }
    ?>
    <footer>
-      Projet Programmation Web 2022 : PIVETEAU Théo, ZULIANI Cedric, LETULE Luc
+      Projet Programmation Web 2022 : PIVETEAU Théo, ZULIANI Cedric, LETULÉ Luc
    </footer>
 </body>
    <script src="..\FonctionJS.js"></script>
