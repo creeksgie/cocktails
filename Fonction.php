@@ -182,6 +182,38 @@ function Tourner_Recettes($Lien)
 }
 
 
+function Recup_Sous_cat($Lien)
+{
+    global $Recettes, $Hierarchie;
+    $nom = $Lien;
+    $Lien = $Hierarchie[$Lien];
+    $i = -1;
+    $sc = null;
+
+    do {
+        foreach ($Recettes as $index_c => $cocktails) {                                     //on parcours le tableau des cocktails
+            foreach ($cocktails[array_keys($cocktails)[3]] as $index_ing => $ingredients) { //on parcours le tableau des ingrédients
+                if (isset($Lien["sous-categorie"])) {                                       //si on est sur les sous-catégories de la page
+                    foreach ($Lien["sous-categorie"] as $index_sc => $sous_categorie) {     //on parcours le tableau des sous-catégories
+                        if (!isset($sc)) { 
+                            $sc[] = $sous_categorie;                                        //on stocke la première sous-catégorie 
+                        } elseif (!in_array($sous_categorie, $sc)) {                        //si la sous-catégorie n'est pas déjà stockée
+                            $sc[] = $sous_categorie;                                        //on stocke la sous-catégorie
+                        }
+                    }
+                }
+            }
+        }
+
+        $i++;                                                                               //on incrémente i pour passer à la sous-catégorie suivante
+        if (isset($sc[$i])) {                                                               //si la sous-catégorie existe
+            $Lien = $Hierarchie[$sc[$i]];                                                   //on change le lien
+        }
+    } while ($i < count($sc));                                                              //on recommence tant que i est inférieur au nombre de sous-catégories
+    return $sc;
+}
+
+
 /**
  * 
  */
