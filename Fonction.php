@@ -1,4 +1,5 @@
 <?php
+
 /***
  * Fonction qui permet d'afficher les images des cocktails
  * @param string $mot nom du cocktail
@@ -74,12 +75,26 @@ function Afficher_Image($mot)
  */
 function Afficher_Bouton_like($cocktail)
 {
+    if (isset($_SESSION['user'])) { //Si je suis connecter
+        $Login = $_SESSION['user']['login'];
+        include('user\\'.$Login.'.php');
+    }
     ?>
     <button class="btn" id="<?php echo $cocktail; ?>">
         <?php
         //on affiche un coeur plein si le cocktail est dans le tableau des likes sinon on affiche un coeur vide
-        if (isset($_SESSION['like'])) {
-            if (in_array($cocktail, $_SESSION['like'])) {
+        if (isset($_SESSION['like']) || isset($userLike)) {
+            if (!isset($_SESSION['like'])) {
+                $like = array();
+            } else {
+                $like = $_SESSION['like'];
+            }
+            if (!isset($userLike)) {
+                $uLike = array();
+            }else{
+                $uLike = $userLike;
+            }
+            if (in_array($cocktail, $like) || in_array($cocktail, $uLike)) {
         ?>
                 <img class="svg" src="..\svg\coeurplein.svg" alt="">
             <?php

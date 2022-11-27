@@ -12,9 +12,12 @@ $('.btn').on('click', function() {
         url: 'like.php',
         data: {
             indice: indice,
+        },
+        complete: function(data) {
+            if (document.getElementById("like") !=null && document.getElementById("like").id == "like") {     //Si on ce trouve sur la page affichant les recettes likées
+                location.reload();                                                                              //On recharge la page
+              }
         }
     }); 
-    if (document.getElementById("like") !=null && document.getElementById("like").id == "like") {     //Si on ce trouve sur la page affichant les recettes likées
-        location.reload();                                                                            //On recharge la page
-    }
+    
 });

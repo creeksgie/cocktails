@@ -7,7 +7,7 @@
     }
 
     ?>
-    <span>
+    <div id="inscription">
         <form method="post" action="./" >
             Login * :
             <input name="Login" type="text" required="required" /><br /> 
@@ -27,5 +27,5 @@
             <br />
             <input type="submit" value="Valider" />   
         </form>
-    </span>
+    </div>
 </article>

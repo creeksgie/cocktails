@@ -3,31 +3,32 @@ session_start();
 
 if(isset($_POST['Login']) && isset($_POST['mdp']) && file_exists('user\\'.$_POST['Login'].'.php'))
 {
-   echo 'Login et mot de passe corrects';
    header("location: ./index.php?page=Inscription&use=1");
 }else if(isset($_POST['Login']) && isset($_POST['mdp']))
 {
       $Login = $_POST['Login'];
-      $mdp = $_POST['mdp'];
+      $mdp = password_hash($_POST['mdp'],PASSWORD_DEFAULT);
       $users = array('login' => $Login , 'mdp' => $mdp);
-      if (!isset($_POST['nom'])) {
+      if (isset($_POST['nom']) && !empty($_POST['nom'])) {
          $nom = $_POST['nom'];
          $users['nom'] = $nom;
       }
-      if (!isset($_POST['prenom'])) {
+      if (isset($_POST['prenom']) && !empty($_POST['prenom'])) {
          $prenom = $_POST['prenom'];
          $users['prenom'] = $prenom;
       }
-      $fp = fopen($Login.'.php', 'w');
+      $fp = fopen('user\\'.$Login.'.php', 'w');
       fwrite($fp, "<?php \$user= ".var_export($users, true)."?>");
       fclose($fp);
 }
 if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_POST['iLogin'].'.php')) {
    $Login = $_POST['iLogin'];
    include('user\\'.$Login.'.php');
-   echo "fichier trouvé";
-   $_SESSION['user'] = $user;
-   //var_dump($_SESSION['user']);
+   if (password_verify($_POST['imdp'], $user['mdp'])) {
+      $_SESSION['user'] = $user;
+  } else {
+      //Afficher une popup qui dit que le mot de est invalide 
+  }
 }
 
 ?>
@@ -112,18 +113,10 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
    ?>
       <nav>
          <?php
-         if (isset($_GET['page']) && (($_GET['page'] == "Like") || ($_GET['page'] == "Inscription"))) {
+         if (isset($_GET['page']) && (($_GET['page'] == "Like") || ($_GET['page'] == "Inscription") || ($_GET['page'] == "Profil"))) {
          } else {
             require("navigation.php");
          }
-         /*if(isset($_SESSION['user']))
-      {
-          if(!isset($_GET['page']) && $_GET['page']== 'Connexion'){
-          } else {
-             require("connexion.php");
-          }
-      }
-      else include('connexion.php');*/
          ?>
       </nav>
       <main>
@@ -133,14 +126,15 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
          } else {
             if (isset($_GET['page']) && $_GET['page'] == "Like") {
                require("afficherLike.php");
-            } else {
-               if (isset($_GET['page']) && $_GET['page'] == "Inscription") {
-                  require("inscription.php");
-               }else {
-                  require("cocktails.php");
-               }
-               
-            }
+            } else if (isset($_GET['page']) && $_GET['page'] == "Inscription") {
+               require("inscription.php");
+            }elseif (isset($_GET['page']) && $_GET['page'] == "Deconnection") {
+               require("deconnection.php");
+            }elseif (isset($_GET['page']) && $_GET['page'] == "Profil") {
+               require("profil.php");
+            }else {
+               require("cocktails.php");
+            } 
          }
          ?>
 
@@ -152,5 +146,5 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
       <p>Projet Programmation Web 2022 : PIVETEAU Théo, ZULIANI Cedric, LETULÉ Luc</p>
    </footer>
 </body>
-   <script src="..\FonctionJS.js"></script>
+   <script src="..\Fonction.js"></script>
 </html>
