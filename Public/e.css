@@ -18,13 +18,34 @@ header {
     height: 15vh;
     border-bottom: 1px solid rgb(255, 255, 255, 0.1);
     position: fixed;
+    align-items: center;
+    justify-content: center;
+    padding-right: 2rem;
+    padding-left: 1rem;
 }
 
-header  .head-section {
-    padding: 1rem 2rem;
+header div {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#head-recettes a{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#head-recettes img{
+    margin-left: 0.5rem;
+    animation: heartbeat 10s infinite;
+    width:25px;
+    height:25px;
+}
+
+.login{
+    display: flex;
+    justify-content: flex-start;
 }
 
 a, p, span {
@@ -91,8 +112,16 @@ nav ul{
 }
 
 nav li{
-    list-style-type: '-';
+    list-style-type: none;
     color: white;
+}
+
+a:hover{
+    color: grey;
+}
+
+nav a:hover:before { 
+    content:" » ";
 }
 
 .svg{
@@ -114,6 +143,11 @@ main article div a
     padding-right: 10px;
 }
 
+main article div a:hover
+{
+    color: rgb(0, 128, 255);
+}
+
 main article div
 {
     display: inline-block;
@@ -124,6 +158,8 @@ main article div
     min-height: 400px;
     max-height: 400px;
     background-color:rgb(255, 255, 255);
+    box-shadow:-6px 6px 0px 0px #a4a4a4;
+    border-radius: 2%;
 }
 
 article p
@@ -153,6 +189,7 @@ form div
     padding-right: 1rem;
 }
  #inscription {
+    box-shadow:none;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -160,4 +197,45 @@ form div
     color: white;
     background-color:rgb(11, 22, 51);
     width: auto;
+}
+
+#connecter *{
+   margin-right: 1rem;
+}
+
+button {
+    border-radius: 10%;
+    border: 0.1px solid grey ;
+}
+
+main button:hover img{
+    animation: heartbeat 5s;
+}
+
+@keyframes heartbeat
+{
+  0%
+  {
+    transform: scale(1);
+  }
+  20%
+  {
+    transform: scale(0.7);
+  }
+  40%
+  {
+    transform: scale(1);
+  }
+  60%
+  {
+    transform: scale(1);
+  }
+  80%
+  {
+    transform: scale(0.7);
+  }
+  100%
+  {
+    transform: scale(1);
+  }
 }

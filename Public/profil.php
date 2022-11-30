@@ -3,10 +3,10 @@
  $Login = $_SESSION['user']['login'];
  include('user\\'.$Login.'.php');   
  if (isset($_POST['submit'])) {
-    if (isset($_POST['mdp']) && !empty($_POST['prenom'])) {
+    if (isset($_POST['mdp']) && !empty($_POST['mdp'])) {
        $user['mdp'] = password_hash($_POST['mdp'],PASSWORD_DEFAULT);
     }
-    if (isset($_POST['nom'])) {
+    if (isset($_POST['nom']) && !empty($_POST['prenom'])) {
         $user['nom'] = $_POST['nom'];
     }
     if (isset($_POST['prenom']) && !empty($_POST['prenom'])) {

@@ -37,7 +37,7 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
 
 <head>
    <meta charset='utf-8'>
-   <link rel="stylesheet" href="b.css">
+   <link rel="stylesheet" href="e.css">
    <title>Cocktails</title>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <?php
@@ -53,13 +53,13 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
     margin-left: 0px;
     margin-right: 0px;">
    <header>
-      <div id="head-nav" class="head-section">
+      <div id="head-nav">
          <a href="?page=Aliment">Navigation</a>
       </div>
-      <div id="head-recettes" class="head-section">
+      <div id="head-recettes">
          <a href="?page=Like">Recettes <img class="svg" src="..\svg\coeurplein.svg" alt=""> </a>
       </div>
-      <div id="search" class="head-section">
+      <div id="search">
          <form action="./" class="hide-submit" method="POST">
             <input name="ingredient" type="text" required="required" />
             <label>
@@ -70,14 +70,14 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
       <?php
       if (!isset($_SESSION['user'])) {
       ?>
-      <div id="login" class="head-section">
+      <div id="login">
          
-            <form action="./" class="hide-submit" method="POST">
-            <div>
+            <form action="./" method="POST">
+            <div class="login">
                <p>Login &nbsp;</p>
                <input name="iLogin" type="text" required="required" />
             </div>
-            <div>
+            <div class="login">
                <p>Mot de passe &nbsp;</p>
                <input name="imdp" type="password" required="required" />
             </div> 
@@ -91,20 +91,22 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
          }
          else {
             ?>
-            <div id="id" class="head-section"> 
+      <div id="connecter">
+            <div id="id"> 
                <span>
                <?php echo $_SESSION['user']['login'] ?>
                </span>
             </div>
-            <div id="profil" class="head-section"> 
+            <div id="profil"> 
                <a href="?page=Profil">Profil</a>
             </div>
-            <div id="deco" class="head-section"> 
+            <div id="deco"> 
                <a href="?page=Deconnection">Deconnection</a>
             </div>
          <?php
          }
          ?>
+      </div>
    </header>
    <?php
    if (isset($_POST['ingredient'])) {
@@ -146,5 +148,5 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
       <p>Projet Programmation Web 2022 : PIVETEAU Théo, ZULIANI Cedric, LETULÉ Luc</p>
    </footer>
 </body>
-   <script src="..\Fonction.js"></script>
+   <script src="..\FonctionJS.js"></script>
 </html>

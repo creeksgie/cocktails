@@ -130,8 +130,16 @@ function Afficher_Recette_synt($cocktails)
             Afficher_Image($Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]);
             ?>
             <br>
-
+            <?php
+            if (!isset($_GET['page'])) {
+                ?>
+            <a href="?page=Aliment&Recettes=<?php echo $cocktails; ?>"><?php echo $Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]; ?></a>
+            <?php }
+            else {
+                ?>
             <a href="?page=<?php echo $_GET['page']; ?>&Recettes=<?php echo $cocktails; ?>"><?php echo $Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]; ?></a>
+            <?php } ?>
+            
         </p>
         <ul>
             <?php
