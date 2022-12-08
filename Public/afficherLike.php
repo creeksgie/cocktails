@@ -32,7 +32,7 @@ if (isset($_SESSION['user'])) { //Si je suis connecter
         $indice = $_SESSION['like'];
         sort($indice);
         foreach ($indice as $index_a => $cocktails) {
-            Afficher_Recette_synt($cocktails,$Recettes[$cocktails]);
+            Afficher_Recette_synt($cocktails);
         }
     }
     ?>
