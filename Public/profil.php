@@ -3,6 +3,11 @@
  $Login = $_SESSION['user']['login'];
  include('user\\'.$Login.'.php');   
  if (isset($_POST['submit'])) {
+    $valide = true;
+    if (isset($_POST['login']) == $user['login']) {
+        $valide = false;
+    }
+
     if (isset($_POST['mdp']) && !empty($_POST['mdp'])) {
        $user['mdp'] = password_hash($_POST['mdp'],PASSWORD_DEFAULT);
     }
@@ -13,24 +18,58 @@
         $user['prenom'] = $_POST['prenom'];
     }
 
-    
-    if (isset($userLike)) {
-        $fp = fopen('user\\'.$Login.'.php', 'w'); 
-        fwrite($fp, "<?php \$user= ".var_export($user, true)."; \$userLike= ".var_export($userLike, true).";  ?>");
-        fclose($fp);
-    }else{
-        $fp = fopen('user\\'.$Login.'.php', 'w');
-        fwrite($fp, "<?php \$user= ".var_export($user, true)."?>");
-        fclose($fp);
+    if(isset($_POST['sexe'])) 			// la variable sexe est positionnée
+    { 
+        $Sexe=$_POST['sexe'];			// affectation de la variable $Sexe
+        if(($Sexe=='f')||($Sexe=='h'))
+        {
+            echo "ok";
+            $user['sexe'] = $Sexe;
+        }
+        else
+        {
+            $valide = false;
+        }
+    }
+    if(isset($_POST['naissance'])) 			// la variable date de naissance est positionnée
+    { $Naissance=trim($_POST['naissance']); // suppression des espaces devant et derrière 
+     if($Naissance=="");
+     else { list($Annee,$Mois,$Jour)=explode('-',$Naissance);
+          if(checkdate($Mois,$Jour,$Annee)) 
+          {
+             $date = new DateTime();
+             $date_18 = $date->sub(new DateInterval('P18Y'));
+             $Naissance = new DateTime($_POST['naissance']);
+             if( $Naissance <= $date_18)
+             {
+                $user['naissance'] = $_POST['naissance'];
+             }
+             else{
+                $valide = false;
+             }
+          }   
+          }
+    }
+    if ($valide === true) {
+        if (isset($userLike)) {
+            $fp = fopen('user\\'.$Login.'.php', 'w'); 
+            fwrite($fp, "<?php \$user= ".var_export($user, true)."; \$userLike= ".var_export($userLike, true).";  ?>");
+            fclose($fp);
+        }else{
+            $fp = fopen('user\\'.$Login.'.php', 'w');
+            fwrite($fp, "<?php \$user= ".var_export($user, true)."?>");
+            fclose($fp);
+        }
+        echo"Modification effectuer";
     }
     $_SESSION['user'] = $user;
-    echo"Modification effectuer";
+    
  }
 ?>
 <div id="inscription">
         <form method="post" action=# >
             Login * :
-            <input name="Login" type="text" disabled ="disabled" value="<?php echo $user['login'] ?>"/><br /> 
+            <input name="login" type="text" disabled ="disabled" value="<?php echo $user['login'] ?>"/><br /> 
             Mot de passe * : 
             <input name="mdp" type="password"/><br />  
             Nom :    
@@ -65,7 +104,7 @@
             <br />
                 
             Date de naissance : 
-            <input type="date" name="naissance" /><br /> 	
+            <input type="date" name="naissance"  value="<?php if(isset($user['naissance'])) echo $user['naissance']; ?>"/><br /> 	
             <br />
             <input type="submit" name="submit" value="Valider" />   
         </form>
