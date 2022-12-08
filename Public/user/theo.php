@@ -1,5 +1,6 @@
 <?php $user= array (
   'login' => 'theo',
-  'mdp' => '$2y$10$C0muwtILnTxoDDPebKlHvOzuFVf21jkvblg8uD3/ibfJ4t.d32YNS',
-  'nom' => '',
-); $userLike= NULL;  ?>
+  'mdp' => '8efd86fb78a56a5145ed7739dcb00c78581c5375',
+  'naissance' => '1999-12-20',
+  'sexe' => 'f',
+)?>

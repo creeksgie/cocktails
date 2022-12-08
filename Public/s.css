@@ -129,6 +129,11 @@ nav a:hover:before {
     height:20px;
 }
 
+.btn{
+    background-color: transparent;
+    border: none;
+}
+
 main article
 {
     margin-left: 7vh;
@@ -146,6 +151,11 @@ main article div a
 main article div a:hover
 {
     color: rgb(0, 128, 255);
+}
+
+main article p
+{
+    color: black;
 }
 
 main article div

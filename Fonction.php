@@ -117,14 +117,22 @@ function Afficher_Bouton_like($cocktail)
  * Fonction qui permet d'afficher la version synthétique des recettes
  * @param int $cocktails
  */
-function Afficher_Recette_synt($cocktails)
+function Afficher_Recette_synt($cocktails, $Satis = null )
 {
     global $Recettes;
 ?>
     <div>
         <?php
         Afficher_Bouton_like($cocktails);
+        if ($Satis >= 1 || $Satis === 0) {
+            $Satis = 1;
+        }
+        if ($Satis != null) {
+            $Satis = $Satis * 100;
+            ?><p><?php echo $Satis;?>%</p><?php
+        }
         ?>
+        
         <p>
             <?php
             Afficher_Image($Recettes[$cocktails][array_keys($Recettes[$cocktails])[0]]);
