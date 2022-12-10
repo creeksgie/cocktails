@@ -1,21 +1,21 @@
 <?php
-$TabAlimentVoulu = array();
-$TabAlimentNonDesire = array();
-$TabInconnu = array();
-$TabCocktail = null;
-$TabMotsComposer=null;
-$List_Recherche_Tmp= $_POST['ingredient'];
-$RecherchePossible=false;
-$NbQuote=true;
+$TabAlimentVoulu = array();                         //Tableau des aliments voulu
+$TabAlimentNonDesire = array();                     //Tableau des aliments non désiré
+$TabInconnu = array();                              //Tableau des aliments inconnu
+$TabCocktail = null;                                //Tableau des cocktails
+$TabMotsComposer=null;                              //Tableau des mots composés
+$List_Recherche_Tmp= $_POST['ingredient'];          //Liste des aliments recherché
+$RecherchePossible=false;                           //Booléen pour savoir si la recherche est possible
+$NbQuote=true;                                      //Booléen pour savoir si le nombre de quote est pair
 
-if(preg_match('/^ +/', $List_Recherche_Tmp)){
-    preg_replace('/^ +/', '', $List_Recherche_Tmp);
+if(preg_match('/^ +/', $List_Recherche_Tmp)){       //Si la liste commence par un espace
+    preg_replace('/^ +/', '', $List_Recherche_Tmp); //On supprime les espaces
 }
-if(substr_count($List_Recherche_Tmp, '"')%2==0){
-    $RecherchePossible = rechercheDansTab($TabAlimentVoulu,$TabAlimentNonDesire,$TabInconnu, $List_Recherche_Tmp);
+if(substr_count($List_Recherche_Tmp, '"')%2==0){    //Si le nombre de quote est pair
+    $RecherchePossible = Recherche_Dans_Tab($TabAlimentVoulu,$TabAlimentNonDesire,$TabInconnu, $List_Recherche_Tmp); //On recherche dans le tableau
 }
-else{
-    $NbQuote=false;
+else{ 
+    $NbQuote=false;                                 //Sinon on met le booléen à false
 }
 
 
@@ -25,30 +25,30 @@ else{
     <article>
         <span>
         <?php
-            if(!$NbQuote){
-                echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes";
+            if(!$NbQuote){ //Si le nombre de quote est impair
+                echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes"; //On affiche un message d'erreur
             }
-            else{
-                if(!empty($TabAlimentVoulu))
+            else{                                                       //Sinon on affiche les résultats 
+                if(!empty($TabAlimentVoulu))                            //Si le tableau n'est pas vide
                 {
                     ?>
                     <p>Aliment voulu :</p>
                     <?php
-                    echo implode(", ", $TabAlimentVoulu)."<br>"; 
+                    echo implode(", ", $TabAlimentVoulu)."<br>";        //On affiche les aliments voulu
                 }
-                if(!empty($TabAlimentNonDesire))
+                if(!empty($TabAlimentNonDesire))                        //Si le tableau n'est pas vide
                 {
                     ?>
                     <p>Aliment non désiré :</p>
                     <?php
-                    echo implode(", ", $TabAlimentNonDesire)."<br>";
+                    echo implode(", ", $TabAlimentNonDesire)."<br>";    //On affiche les aliments non désiré
                 }
-                if(!empty($TabInconnu))
+                if(!empty($TabInconnu))                                 //Si le tableau n'est pas vide
                 {
                     ?>
                     <p>Aliment inconnu :</p>
                     <?php
-                    echo implode(", ", $TabInconnu)."<br>";
+                    echo implode(", ", $TabInconnu)."<br>";             //On affiche les aliments inconnu
                 }
                 
             }
@@ -60,127 +60,20 @@ else{
     <article>
         <span>
         <?php
-        //$x = $_POST['ingredient'];
-        if(empty($TabAlimentVoulu) && empty($TabAlimentNonDesire)){
-            $RecherchePossible=false;
+        if(empty($TabAlimentVoulu) && empty($TabAlimentNonDesire)){     //Si les tableaux sont vide
+            $RecherchePossible=false;                                   //On met le booléen à false
         }
-        if($RecherchePossible && $NbQuote){
+        if($RecherchePossible && $NbQuote){                             //Si la recherche est possible et que le nombre de quote est pair
             ?>
             </span>
             <?php
-             $Satis = count($TabAlimentVoulu);
-            if ((empty($TabAlimentVoulu) || !empty($TabAlimentNonDesire)) && !in_array("Aliment", $TabAlimentVoulu)) {
-                $TabAlimentVoulu[] = 'Aliment';
-                $Satis = count($TabAlimentVoulu) + count($TabAlimentNonDesire) -1;
-            }
-        
-            foreach ($TabAlimentVoulu as $index => $recherche) {
-                $afficher[] = Tourner_Recettes($recherche);
-            }
-            foreach($afficher as $index=>$tab){
-                foreach($tab as $index2=>$recette){
-                    $TabCocktail[]=$recette;
-                }
-            }
-            $TabCocktail = array_unique($TabCocktail);
-            sort($TabCocktail);
-            if (!empty($TabAlimentNonDesire)) {
-                $afficher = null;
-                foreach ($TabAlimentNonDesire as $index => $recherche) {
-                    $afficher[] = Tourner_Recettes($recherche);
-                }
-                foreach($afficher as $index=>$tab){
-                    foreach($tab as $index2=>$recette){
-                        $TabNonVoulu[]=$recette;
-                    }
-                }
-                foreach($TabNonVoulu as $index=>$recette){
-                    if (array_search($recette, $TabCocktail)) {
-                        array_splice($TabCocktail, array_search($recette, $TabCocktail),1);
-                    }
-                }
-            
-            $TabCocktail = array_unique($TabCocktail);
-            $S = count($TabAlimentNonDesire);
-            $SC = null;
-            foreach ($TabCocktail as $key => $value) {
-                foreach($TabAlimentVoulu as $index=>$aliment){
-                    if($aliment!="Aliment"){
-                        $SC = Recup_Sous_cat($aliment);
-                    }
-                    //faire une fonction qui récup les sous catégorie des aliments car ya pas que l'aliment courant qui satisfait la demande, pour lait "lait de coco" satisfait aussi 
-                        if (in_array($aliment, $Recettes[$value][array_keys($Recettes[$value])[3]])) {
-                            $S++;
-                        }else{
-                            if (!empty($SC)) {
-                                foreach($SC as $index2=>$sous_cat){
-                                    if (in_array($sous_cat, $Recettes[$value][array_keys($Recettes[$value])[3]])) {
-                                        $S++;
-                                    }
-                                    
-                            }}
-
-                        }
-                        $SC = null;
-                    }
-                
-                    if(!empty($tmp[$S]))
-                    {
-                        $tmp[$S][]=  $value;
-                    }else
-                    {
-                        $tmp[$S]= array(0 => $value);
-                    }
-            $S = count($TabAlimentNonDesire);
-            }
-            }
-            if (empty($TabAlimentNonDesire)) {
-                foreach ($TabAlimentVoulu as $index => $recherche) {
-                    if (empty($tmp)) {
-                        $tmp = Tourner_Recettes($recherche);
-                    }
-                    else
-                    {
-                        $tmp = array_merge($tmp, Tourner_Recettes($recherche));
-                    }
-                }
-                sort($tmp);
-                foreach($tmp as $index => $cocktail){
-                    Afficher_Recette_Synt($cocktail,1);
-                }
-            }
-            else
-            {
-                $T = $tmp[max(array_keys($tmp))];
-                do {
-                    foreach($T as $index => $cocktail){
-                        Afficher_Recette_Synt($cocktail,max(array_keys($tmp))/($Satis));
-                        unset($tmp[max(array_keys($tmp))][$index]);
-                        if (empty($tmp[max(array_keys($tmp))])) {
-                          unset($tmp[max(array_keys($tmp))]);
-                          if (!empty($tmp)) {
-                            $T = $tmp[max(array_keys($tmp))]; 
-                          }
-                        }
-                    }
-                } while (!empty($tmp));
-            }
-           
-            
+            Afficher_Recherche($TabAlimentVoulu, $TabAlimentNonDesire); //On affiche les résultats
         }
         else
         {
-            echo "Problème dans votre requête: Recherche impossible";
+            echo "Problème dans votre requête: Recherche impossible";   //Sinon on affiche un message d'erreur
             ?></span><?php
         }
-        //match les s dans $x 
-        /*$regex = '/s/';
-    $matches = array();
-    preg_match_all($regex, $x, $matches);
-    var_dump($matches);
-    echo "<br>";
-    //affiche le nombre de s dans $x
-    */
         ?>
     </article>
 </main>

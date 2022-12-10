@@ -1,4 +1,5 @@
-<span>
+<article>
+    <div id="detaille">
     <?php
     Afficher_Bouton_like($_GET['Recettes']);
 
@@ -18,4 +19,5 @@
     <?php
     }
     ?>
-</span>
+    </div>
+</article>

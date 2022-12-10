@@ -1,81 +1,14 @@
 <?php
 session_start();
-
-if(isset($_POST['Login']) && isset($_POST['mdp']) && file_exists('user\\'.$_POST['Login'].'.php'))
-{
-   $valide = false;
-   header("location: ./index.php?page=Inscription&use=1");
-}else if(isset($_POST['Login']) && isset($_POST['mdp']))
-{
-   $valide = true;
-      if (!preg_match("/^([a-zA-Z0-9]+)$/",$_POST['Login'])) {
-         $valide = false;
-         header("location: ./index.php?page=Inscription&use=1");
-      }
-      else {
-         $Login = $_POST['Login']; 
-      }
-         
-      $mdp = sha1($_POST['mdp']);
-      $users = array('login' => $Login , 'mdp' => $mdp);
-      if (isset($_POST['nom']) && !empty($_POST['nom'])) {
-         if(!preg_match("/^([A-Za-zÀ-ÖØ-öø-ÿ ']+((\-)*[A-Za-zÀ-ÖØ-öø-ÿ']+)*)$/",$_POST['Nom'])) {
-            $valide = false;
-            header("location: ./index.php?page=Inscription&use=1");
-         }
-         $nom = $_POST['nom'];
-         $users['nom'] = $nom;
-      }
-      if (isset($_POST['prenom']) && !empty($_POST['prenom'])) {
-         if(!preg_match("/^([A-Za-zÀ-ÖØ-öø-ÿ ']+((\-)*[A-Za-zÀ-ÖØ-öø-ÿ']+)*)$/",$_POST['Prenom'])) {
-            $valide = false;
-            header("location: ./index.php?page=Inscription&use=1");
-         }
-         $prenom = $_POST['prenom'];
-         $users['prenom'] = $prenom;
-      }
-      
-      if(isset($_POST['naissance'])) 			// la variable date de naissance est positionnée
-      { $Naissance=trim($_POST['naissance']); // suppression des espaces devant et derrière 
-       if($Naissance=="");
-       else { list($Annee,$Mois,$Jour)=explode('-',$Naissance);
-            if(checkdate($Mois,$Jour,$Annee)) 
-            {
-               $date = new DateTime();
-               $date_18 = $date->sub(new DateInterval('P18Y'));
-               $Naissance = new DateTime($_POST['naissance']);
-               if( $Naissance <= $date_18)
-               {
-                  $users['naissance'] = $_POST['naissance'];
-               }
-               else{
-                  $valide = false;
-                  header("location: ./index.php?page=Inscription&use=1");
-               }
-            }   
-            }
-      }
-
-      if(isset($_POST['sexe'])) 			// la variable sexe est positionnée
-      { 
-         $Sexe=$_POST['sexe'];			// affectation de la variable $Sexe
-         if(($Sexe=='f')||($Sexe=='h')) $users['sexe'] = $Sexe; 
-         else $valide = false;
-      }
-      if ($valide == true) {
-         $fp = fopen('user\\'.$Login.'.php', 'w');
-         fwrite($fp, "<?php \$user= ".var_export($users, true)."?>");
-         fclose($fp);
-      }
-      
-}
 if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_POST['iLogin'].'.php')) {
    $Login = $_POST['iLogin'];
    include('user\\'.$Login.'.php');
    if (sha1($_POST['imdp']) == $user['mdp']) {
       $_SESSION['user'] = $user;
   } else {
-      //Afficher une popup qui dit que le mot de est invalide 
+      ?>
+      <script>alert("Mot de passe éronné");</script>
+      <?php
   }
 }
 
@@ -85,7 +18,7 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
 
 <head>
    <meta charset='utf-8'>
-   <link rel="stylesheet" href="s.css">
+   <link rel="stylesheet" href="style.css">
    <title>Cocktails</title>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <?php
@@ -130,7 +63,7 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
                <input name="imdp" type="password" required="required" />
             </div> 
             <label>
-               <button>Connection</button>
+               <button>Connexion</button>
             </label>
          </form>
          <a href="?page=Inscription">S'inscrire</a>
