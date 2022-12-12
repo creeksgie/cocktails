@@ -79,6 +79,7 @@ main {
 }
 
 nav {
+    color: white;
     top: 15vh;
     width:calc(100% / 8);
     height:100%;

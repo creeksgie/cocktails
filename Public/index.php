@@ -18,7 +18,7 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
 
 <head>
    <meta charset='utf-8'>
-   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="stylesheet.css">
    <title>Cocktails</title>
    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <?php
@@ -52,8 +52,7 @@ if (isset($_POST['iLogin']) && isset($_POST['imdp']) && file_exists('user\\'.$_P
       if (!isset($_SESSION['user'])) {
       ?>
       <div id="login">
-         
-            <form action="./" method="POST">
+         <form action="./" method="POST">
             <div class="login">
                <p>Login &nbsp;</p>
                <input name="iLogin" type="text" required="required" />

@@ -48,4 +48,5 @@ if (isset($_SESSION['user'])) { //Si je suis connecter
         $_SESSION['like'] = $indice;                                            //On met le tableau dans la session
     }
 }
+
 ?>

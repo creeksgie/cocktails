@@ -22,8 +22,6 @@ else{
 
 ?>
 <nav>
-    <article>
-        <span>
         <?php
             if(!$NbQuote){ //Si le nombre de quote est impair
                 echo "Problème de syntaxe dans votre requête : nombre impaire de double-quotes"; //On affiche un message d'erreur
@@ -53,8 +51,6 @@ else{
                 
             }
         ?>
-        </span>
-    </article>
 </nav>
 <main>
     <article>

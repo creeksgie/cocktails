@@ -72,7 +72,7 @@ function Afficher_Image($mot)
 /**
  * Fonction qui permet d'afficher le bouton like
  * @param int $cocktail l'indice du cocktail
- */
+ */     
 function Afficher_Bouton_like($cocktail)
 {
     if (isset($_SESSION['user'])) { //Si je suis connecter
